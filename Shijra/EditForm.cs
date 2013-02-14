@@ -11,7 +11,7 @@ namespace Shijra
 {
     public partial class EditForm : Form
     {
-        
+
         public EditForm()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace Shijra
         {
             List<Model.Person> fathers = ShijraContext.entities.Persons.OrderBy(x => x.FirstName).ToList();
 
-            fathers.ForEach(x => x.Name = x.FirstName.Trim() + " " + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : x.MiddleName.Trim() + " ") + x.LastName.Trim());
+            fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
             ddlFathers.DataSource = fathers;
             ddlFathers.DisplayMember = "Name";
@@ -44,14 +44,14 @@ namespace Shijra
                 ddlFathers.SelectedValue = PersonToEdit.FatherId;
                 txtFname.Text = PersonToEdit.FirstName;
                 txtMName.Text = string.IsNullOrEmpty(PersonToEdit.MiddleName) ? string.Empty : PersonToEdit.MiddleName;
-                txtLName.Text = PersonToEdit.LastName;
+                txtLName.Text = string.IsNullOrEmpty(PersonToEdit.LastName) ? string.Empty : PersonToEdit.LastName;
                 if (PersonToEdit.Persondetail != null)
                 {
                     txtEducation.Text = string.IsNullOrEmpty(PersonToEdit.Persondetail.Education) ? string.Empty : PersonToEdit.Persondetail.Education;
                     txtOccupation.Text = string.IsNullOrEmpty(PersonToEdit.Persondetail.Occupation) ? string.Empty : PersonToEdit.Persondetail.Occupation;
                 }
-                List<Model.Person> childs = PersonToEdit.Childs.OrderBy(c=> c.Id).ToList();
-                childs.ForEach(x => x.Name = x.FirstName.Trim() + " " + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : x.MiddleName.Trim() + " ") + x.LastName.Trim());
+                List<Model.Person> childs = PersonToEdit.Childs.OrderBy(c => c.Id).ToList();
+                childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
                 chkLstChilds.DataSource = childs;
                 chkLstChilds.DisplayMember = "Name";
@@ -72,7 +72,6 @@ namespace Shijra
         private bool ValidateData()
         {
             if (!string.IsNullOrEmpty(txtFname.Text.Trim())
-                && !string.IsNullOrEmpty(txtLName.Text.Trim())
                 && ddlFathers.SelectedIndex > 0)
                 return true;
             else
@@ -86,7 +85,7 @@ namespace Shijra
                 MessageBox.Show("Given Data is not complete or valid");
                 return;
             }
-            
+
             Model.Person updatedPerson = ShijraContext.entities.Persons.First(e => e.Id == PersonToEdit.Id);
             updatedPerson.FirstName = txtFname.Text.Trim();
             updatedPerson.MiddleName = txtMName.Text.Trim();
@@ -130,19 +129,23 @@ namespace Shijra
             MessageBox.Show("Record Updated Successfully");
 
             this.DialogResult = DialogResult.OK;
-            
+
         }
 
         private void DeleteChild(Model.Person p)
         {
-            //if (p.Childs != null && p.Childs.Count > 0)
-            //{
-            //    DeleteChild(p);
-            //}
-            //else
-            //{
-                ShijraContext.entities.Persons.DeleteObject(p);
-            //}
+            ShijraContext.entities.Persons.DeleteObject(p);
+        }
+
+        private void ddlFathers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlFathers.SelectedIndex >= 0)
+            {
+                Model.Person person = (Model.Person)ddlFathers.SelectedItem;
+
+                txtGrandFather.Text = person.Father.FirstName.Trim() + (string.IsNullOrEmpty(person.Father.MiddleName) ? string.Empty : " " + person.Father.MiddleName.Trim()) + (string.IsNullOrEmpty(person.Father.LastName) ? string.Empty : " " + person.Father.LastName.Trim());
+
+            }
         }
 
     }

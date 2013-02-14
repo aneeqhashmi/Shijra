@@ -12,7 +12,7 @@ namespace Shijra.Helpers
         public bool Equals(Person x, Person y)
         {
             return (x.FirstName.Trim() == y.FirstName.Trim()
-                    && x.LastName.Trim() == y.LastName.Trim()
+                    && ((string.IsNullOrEmpty(x.LastName) && string.IsNullOrEmpty(y.LastName)) || x.LastName.Trim() == y.LastName.Trim())
                     && x.FatherId == y.FatherId
                     && ((string.IsNullOrEmpty(x.MiddleName) && string.IsNullOrEmpty(y.MiddleName)) || x.MiddleName.Trim() == y.MiddleName.Trim()));
 

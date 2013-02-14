@@ -34,6 +34,10 @@ namespace Shijra
             this.dialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtUrduName = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtGFather = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.txtOccupation = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txtEducation = new System.Windows.Forms.TextBox();
@@ -58,6 +62,8 @@ namespace Shijra
             this.label15 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblUrduName = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.lblFather = new System.Windows.Forms.Label();
@@ -74,8 +80,6 @@ namespace Shijra
             this.lstChildsView = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ddlFathersView = new System.Windows.Forms.ComboBox();
-            this.txtGFather = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -109,12 +113,14 @@ namespace Shijra
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(657, 265);
+            this.tabControl1.Size = new System.Drawing.Size(660, 291);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage1.Controls.Add(this.txtUrduName);
+            this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.txtGFather);
             this.tabPage1.Controls.Add(this.label18);
             this.tabPage1.Controls.Add(this.txtOccupation);
@@ -136,13 +142,46 @@ namespace Shijra
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(649, 239);
+            this.tabPage1.Size = new System.Drawing.Size(652, 265);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "New Record";
             // 
+            // txtUrduName
+            // 
+            this.txtUrduName.Location = new System.Drawing.Point(90, 153);
+            this.txtUrduName.Name = "txtUrduName";
+            this.txtUrduName.Size = new System.Drawing.Size(267, 20);
+            this.txtUrduName.TabIndex = 19;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(13, 156);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 13);
+            this.label19.TabIndex = 18;
+            this.label19.Text = "Name (Urdu)";
+            // 
+            // txtGFather
+            // 
+            this.txtGFather.Location = new System.Drawing.Point(90, 21);
+            this.txtGFather.Name = "txtGFather";
+            this.txtGFather.ReadOnly = true;
+            this.txtGFather.Size = new System.Drawing.Size(267, 20);
+            this.txtGFather.TabIndex = 17;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(11, 24);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(69, 13);
+            this.label18.TabIndex = 16;
+            this.label18.Text = "Grand Father";
+            // 
             // txtOccupation
             // 
-            this.txtOccupation.Location = new System.Drawing.Point(90, 179);
+            this.txtOccupation.Location = new System.Drawing.Point(90, 207);
             this.txtOccupation.Name = "txtOccupation";
             this.txtOccupation.Size = new System.Drawing.Size(267, 20);
             this.txtOccupation.TabIndex = 15;
@@ -150,7 +189,7 @@ namespace Shijra
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(23, 182);
+            this.label14.Location = new System.Drawing.Point(18, 210);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(62, 13);
             this.label14.TabIndex = 14;
@@ -158,7 +197,7 @@ namespace Shijra
             // 
             // txtEducation
             // 
-            this.txtEducation.Location = new System.Drawing.Point(90, 153);
+            this.txtEducation.Location = new System.Drawing.Point(90, 181);
             this.txtEducation.Name = "txtEducation";
             this.txtEducation.Size = new System.Drawing.Size(267, 20);
             this.txtEducation.TabIndex = 13;
@@ -166,7 +205,7 @@ namespace Shijra
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(23, 156);
+            this.label12.Location = new System.Drawing.Point(26, 184);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 13);
             this.label12.TabIndex = 12;
@@ -186,12 +225,13 @@ namespace Shijra
             this.lstChilds.FormattingEnabled = true;
             this.lstChilds.Location = new System.Drawing.Point(385, 25);
             this.lstChilds.Name = "lstChilds";
-            this.lstChilds.Size = new System.Drawing.Size(241, 173);
+            this.lstChilds.Size = new System.Drawing.Size(241, 199);
             this.lstChilds.TabIndex = 10;
+            this.lstChilds.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstChilds_MouseDoubleClick);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(148, 209);
+            this.btnSave.Location = new System.Drawing.Point(148, 233);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 9;
@@ -202,7 +242,7 @@ namespace Shijra
             // btnReset
             // 
             this.btnReset.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnReset.Location = new System.Drawing.Point(229, 209);
+            this.btnReset.Location = new System.Drawing.Point(229, 233);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 8;
@@ -263,17 +303,16 @@ namespace Shijra
             this.ddlFathers.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ddlFathers.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ddlFathers.FormattingEnabled = true;
-            this.ddlFathers.Location = new System.Drawing.Point(90, 22);
+            this.ddlFathers.Location = new System.Drawing.Point(90, 47);
             this.ddlFathers.Name = "ddlFathers";
             this.ddlFathers.Size = new System.Drawing.Size(267, 21);
             this.ddlFathers.TabIndex = 1;
             this.ddlFathers.SelectedIndexChanged += new System.EventHandler(this.ddlFathers_SelectedIndexChanged);
-            this.ddlFathers.TextUpdate += new System.EventHandler(this.ddlFathers_TextUpdate);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 25);
+            this.label1.Location = new System.Drawing.Point(43, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 0;
@@ -293,7 +332,7 @@ namespace Shijra
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(649, 239);
+            this.tabPage2.Size = new System.Drawing.Size(652, 265);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import";
             // 
@@ -355,6 +394,8 @@ namespace Shijra
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Controls.Add(this.lblUrduName);
+            this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.btnDelete);
             this.tabPage3.Controls.Add(this.btnEdit);
             this.tabPage3.Controls.Add(this.lblFather);
@@ -374,13 +415,31 @@ namespace Shijra
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(649, 239);
+            this.tabPage3.Size = new System.Drawing.Size(652, 265);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "View";
             // 
+            // lblUrduName
+            // 
+            this.lblUrduName.AutoSize = true;
+            this.lblUrduName.Location = new System.Drawing.Point(85, 148);
+            this.lblUrduName.Name = "lblUrduName";
+            this.lblUrduName.Size = new System.Drawing.Size(10, 13);
+            this.lblUrduName.TabIndex = 27;
+            this.lblUrduName.Text = "-";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 148);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(67, 13);
+            this.label21.TabIndex = 26;
+            this.label21.Text = "Name (Urdu)";
+            // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(215, 203);
+            this.btnDelete.Location = new System.Drawing.Point(215, 227);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 25;
@@ -390,7 +449,7 @@ namespace Shijra
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(123, 203);
+            this.btnEdit.Location = new System.Drawing.Point(123, 227);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 24;
@@ -421,7 +480,7 @@ namespace Shijra
             // lblOccupation
             // 
             this.lblOccupation.AutoSize = true;
-            this.lblOccupation.Location = new System.Drawing.Point(85, 172);
+            this.lblOccupation.Location = new System.Drawing.Point(85, 192);
             this.lblOccupation.Name = "lblOccupation";
             this.lblOccupation.Size = new System.Drawing.Size(10, 13);
             this.lblOccupation.TabIndex = 21;
@@ -430,7 +489,7 @@ namespace Shijra
             // lblEducation
             // 
             this.lblEducation.AutoSize = true;
-            this.lblEducation.Location = new System.Drawing.Point(85, 150);
+            this.lblEducation.Location = new System.Drawing.Point(85, 170);
             this.lblEducation.Name = "lblEducation";
             this.lblEducation.Size = new System.Drawing.Size(10, 13);
             this.lblEducation.TabIndex = 20;
@@ -457,7 +516,7 @@ namespace Shijra
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(14, 172);
+            this.label11.Location = new System.Drawing.Point(14, 192);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 13);
             this.label11.TabIndex = 17;
@@ -466,7 +525,7 @@ namespace Shijra
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 150);
+            this.label8.Location = new System.Drawing.Point(21, 170);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 13);
             this.label8.TabIndex = 16;
@@ -504,7 +563,7 @@ namespace Shijra
             this.lstChildsView.FormattingEnabled = true;
             this.lstChildsView.Location = new System.Drawing.Point(389, 42);
             this.lstChildsView.Name = "lstChildsView";
-            this.lstChildsView.Size = new System.Drawing.Size(241, 173);
+            this.lstChildsView.Size = new System.Drawing.Size(241, 186);
             this.lstChildsView.TabIndex = 12;
             this.lstChildsView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstChildsView_MouseDoubleClick);
             // 
@@ -527,24 +586,6 @@ namespace Shijra
             this.ddlFathersView.Size = new System.Drawing.Size(267, 21);
             this.ddlFathersView.TabIndex = 2;
             this.ddlFathersView.SelectedIndexChanged += new System.EventHandler(this.ddlFathersView_SelectedIndexChanged);
-            this.ddlFathersView.TextUpdate += new System.EventHandler(this.ddlFathersView_TextUpdate);
-            // 
-            // txtGFather
-            // 
-            this.txtGFather.Location = new System.Drawing.Point(90, 48);
-            this.txtGFather.Name = "txtGFather";
-            this.txtGFather.ReadOnly = true;
-            this.txtGFather.Size = new System.Drawing.Size(267, 20);
-            this.txtGFather.TabIndex = 17;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(11, 51);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(69, 13);
-            this.label18.TabIndex = 16;
-            this.label18.Text = "Grand Father";
             // 
             // MainForm
             // 
@@ -552,7 +593,7 @@ namespace Shijra
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnReset;
-            this.ClientSize = new System.Drawing.Size(657, 265);
+            this.ClientSize = new System.Drawing.Size(660, 291);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -618,6 +659,10 @@ namespace Shijra
         private Label label16;
         private TextBox txtGFather;
         private Label label18;
+        private TextBox txtUrduName;
+        private Label label19;
+        private Label lblUrduName;
+        private Label label21;
 
 
     }

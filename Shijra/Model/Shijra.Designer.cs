@@ -280,6 +280,30 @@ namespace Shijra.Model
         private global::System.Int64 _FatherId;
         partial void OnFatherIdChanging(global::System.Int64 value);
         partial void OnFatherIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String UrduName
+        {
+            get
+            {
+                return _UrduName;
+            }
+            set
+            {
+                OnUrduNameChanging(value);
+                ReportPropertyChanging("UrduName");
+                _UrduName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("UrduName");
+                OnUrduNameChanged();
+            }
+        }
+        private global::System.String _UrduName;
+        partial void OnUrduNameChanging(global::System.String value);
+        partial void OnUrduNameChanged();
 
         #endregion
     

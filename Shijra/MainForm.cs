@@ -65,8 +65,7 @@ namespace Shijra
         private bool ValidateData()
         {
             if (!string.IsNullOrEmpty(txtFname.Text.Trim())
-                && !string.IsNullOrEmpty(txtLName.Text.Trim())
-                && ddlFathers.SelectedIndex > 0)
+                && ddlFathers.SelectedIndex >= 0)
                 return true;
             else
                 return false;
@@ -82,8 +81,15 @@ namespace Shijra
 
             Model.Person child = new Model.Person();
             child.FirstName = txtFname.Text.Trim();
-            child.MiddleName = txtMName.Text.Trim();
-            child.LastName = txtLName.Text.Trim();
+
+            if (!string.IsNullOrEmpty(txtMName.Text.Trim()))
+                child.MiddleName = txtMName.Text.Trim();
+
+            if (!string.IsNullOrEmpty(txtLName.Text.Trim()))
+                child.LastName = txtLName.Text.Trim();
+            
+            if (!string.IsNullOrEmpty(txtUrduName.Text.Trim()))
+                child.UrduName = txtUrduName.Text.Trim();
 
             child.FatherId = Convert.ToInt64(ddlFathers.SelectedValue);
 
@@ -200,7 +206,7 @@ namespace Shijra
             
             List<Model.Person> fathers = ShijraContext.entities.Persons.OrderBy(x => x.FirstName).ToList();
 
-            fathers.ForEach(x => x.Name = x.FirstName.Trim() + " " + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : x.MiddleName.Trim() + " ") + x.LastName.Trim());
+            fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
             ddlFathersView.DataSource = ddlFathers.DataSource = fathers;
             ddlFathersView.DisplayMember = ddlFathers.DisplayMember = "Name";
@@ -226,6 +232,7 @@ namespace Shijra
             lblFather.Text = "-";
             lblOccupation.Text = "-";
             lblEducation.Text = "-";
+            lblUrduName.Text = "-";
         }
 
         private void DeleteChild(Model.Person p)
@@ -279,31 +286,13 @@ namespace Shijra
             txtLName.Clear();
             txtEducation.Clear();
             txtOccupation.Clear();
+            txtUrduName.Clear();
+            txtFname.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             Save();
-        }
-
-        private void ddlFathers_TextUpdate(object sender, EventArgs e)
-        {
-            //int index = ddlFathers.FindString(ddlFathers.Text);
-            //if (index > 0)
-            //{
-            //    ddlFathers.SelectedIndex = index;
-
-            //}
-        }
-
-        private void ddlFathersView_TextUpdate(object sender, EventArgs e)
-        {
-            //int index = ddlFathersView.FindString(ddlFathersView.Text);
-            //if (index > 0)
-            //{
-            //    ddlFathersView.SelectedIndex = index;
-
-            //}
         }
 
         private void ddlFathers_SelectedIndexChanged(object sender, EventArgs e)
@@ -314,11 +303,13 @@ namespace Shijra
             {
                 Model.Person person = (Model.Person)ddlFathers.SelectedItem;
 
-                txtGFather.Text = person.Father.FirstName.Trim() + " " + (string.IsNullOrEmpty(person.Father.MiddleName) ? string.Empty : person.Father.MiddleName.Trim() + " ") + person.Father.LastName.Trim();
+                txtGFather.Text = person.Father.FirstName.Trim() + (string.IsNullOrEmpty(person.Father.MiddleName) ? string.Empty : " " + person.Father.MiddleName.Trim()) + (string.IsNullOrEmpty(person.Father.LastName) ? string.Empty : " " + person.Father.LastName.Trim());
 
                 List<Model.Person> childs = person.Childs.ToList();
 
-                childs.ForEach(x => x.Name = x.FirstName.Trim() + " " + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : x.MiddleName.Trim() + " ") + x.LastName.Trim());
+                childs.RemoveAll(c => c.Id == person.Id);
+
+                childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
                 lstChilds.DataSource = childs;
                 lstChilds.DisplayMember = "Name";
@@ -334,10 +325,12 @@ namespace Shijra
                 Model.Person person = (Model.Person)ddlFathersView.SelectedItem;
                 
                 List<Model.Person> childs = person.Childs.OrderBy(c=> c.Id).ToList();
-                
+
+                childs.RemoveAll(c => c.Id == person.Id);
+
                 if (childs.Count > 0)
                 {
-                    childs.ForEach(x => x.Name = x.FirstName.Trim() + " " + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : x.MiddleName.Trim() + " ") + x.LastName.Trim());
+                    childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
                     lstChildsView.DataSource = childs;
                     lstChildsView.DisplayMember = "Name";
@@ -349,8 +342,9 @@ namespace Shijra
                 }
 
                 lblId.Text = person.Id.ToString();
-                lblName.Text = person.FirstName + " " + (string.IsNullOrEmpty(person.MiddleName) ? string.Empty : person.MiddleName + " ") + person.LastName;
-                lblFather.Text = person.Father.FirstName + " " + (string.IsNullOrEmpty(person.Father.MiddleName) ? string.Empty : person.Father.MiddleName + " ") + person.Father.LastName;
+                lblName.Text = person.FirstName + (string.IsNullOrEmpty(person.MiddleName) ? string.Empty : " " + person.MiddleName) + (string.IsNullOrEmpty(person.LastName) ? string.Empty : " " + person.LastName);
+                lblFather.Text = person.Father.FirstName + (string.IsNullOrEmpty(person.Father.MiddleName) ? string.Empty : " " + person.Father.MiddleName) + (string.IsNullOrEmpty(person.Father.LastName) ? string.Empty : " " + person.Father.LastName);
+                lblUrduName.Text = person.UrduName;
                 if (person.Persondetail != null)
                 {
                     lblEducation.Text = string.IsNullOrEmpty(person.Persondetail.Education) ? "-" : person.Persondetail.Education;
@@ -395,6 +389,12 @@ namespace Shijra
                 ddlFathersView.SelectedValue = ((Model.Person)lstChildsView.SelectedItem).Id;
         }
 
+        private void lstChilds_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lstChilds.SelectedItem is Model.Person)
+                ddlFathers.SelectedValue = ((Model.Person)lstChilds.SelectedItem).Id;
+        }
+
         private void lblName_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(lblName.Text) && lblName.Text.Trim() != "-")
@@ -405,6 +405,8 @@ namespace Shijra
 
 
         #endregion
+
+        
 
     }
 }
