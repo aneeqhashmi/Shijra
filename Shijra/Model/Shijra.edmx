@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="shijraModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="shijraModelStoreContainer">
+    <EntitySet Name="PersonDetails" EntityType="shijraModel.Store.PersonDetails" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Persons" EntityType="shijraModel.Store.Persons" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_persondetails" Association="shijraModel.Store.FK_persondetails">
+      <End Role="persons" EntitySet="Persons" />
+      <End Role="persondetails" EntitySet="PersonDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_persons" Association="shijraModel.Store.FK_persons">
+      <End Role="persons" EntitySet="Persons" />
+      <End Role="persons1" EntitySet="Persons" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonDetails">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="bigint" Nullable="false" />
+    <Property Name="Education" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="Occupation" Type="varchar" Nullable="true" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Persons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="MiddleName" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="FatherId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_persondetails">
+    <End Role="persons" Type="shijraModel.Store.Persons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="persondetails" Type="shijraModel.Store.PersonDetails" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="persons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="persondetails">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_persons">
+    <End Role="persons" Type="shijraModel.Store.Persons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="persons1" Type="shijraModel.Store.Persons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="persons1">
+        <PropertyRef Name="FatherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="shijraModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="shijraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonDetails" EntityType="shijraModel.PersonDetail" />
+          <EntitySet Name="Persons" EntityType="shijraModel.Person" />
+          <AssociationSet Name="FK_persondetails" Association="shijraModel.FK_persondetails">
+            <End Role="persons" EntitySet="Persons" />
+            <End Role="persondetails" EntitySet="PersonDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons" Association="shijraModel.FK_persons">
+            <End Role="persons" EntitySet="Persons" />
+            <End Role="persons1" EntitySet="Persons" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PersonDetail">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int64" Nullable="false" />
+          <Property Name="Education" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Occupation" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="person" Relationship="shijraModel.FK_persondetails" FromRole="persondetails" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FatherId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Persondetail" Relationship="shijraModel.FK_persondetails" FromRole="persons" ToRole="persondetails" />
+          <NavigationProperty Name="Childs" Relationship="shijraModel.FK_persons" FromRole="persons" ToRole="persons1" />
+          <NavigationProperty Name="Father" Relationship="shijraModel.FK_persons" FromRole="persons1" ToRole="persons" />
+        </EntityType>
+        <Association Name="FK_persondetails">
+          <End Role="persons" Type="shijraModel.Person" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="persondetails" Type="shijraModel.PersonDetail" Multiplicity="0..1" >
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="persondetails">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons">
+          <End Role="persons" Type="shijraModel.Person" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="persons1" Type="shijraModel.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="persons1">
+              <PropertyRef Name="FatherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="shijraModelStoreContainer" CdmEntityContainer="shijraEntities">
+    <EntitySetMapping Name="PersonDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(shijraModel.PersonDetail)">
+        <MappingFragment StoreEntitySet="PersonDetails">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Education" ColumnName="Education" />
+          <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Persons">
+      <EntityTypeMapping TypeName="IsTypeOf(shijraModel.Person)">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FatherId" ColumnName="FatherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToMySQL.tt" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Shijra">
+        <EntityTypeShape EntityType="shijraModel.PersonDetail" Width="1.5" PointX="3" PointY="1.375" Height="1.7879850260416668" IsExpanded="true" />
+        <EntityTypeShape EntityType="shijraModel.Person" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083331" IsExpanded="true" />
+        <AssociationConnector Association="shijraModel.FK_persondetails" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.2689925130208333" />
+          <ConnectorPoint PointX="3" PointY="2.2689925130208333" />
+        </AssociationConnector>
+        <AssociationConnector Association="shijraModel.FK_persons" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="3.5571907552083331" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="3.8071907552083335" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="3.8071907552083335" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="3.5571907552083331" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
