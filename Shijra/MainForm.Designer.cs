@@ -80,6 +80,11 @@ namespace Shijra
             this.lstChildsView = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ddlFathersView = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.rbMale = new System.Windows.Forms.RadioButton();
+            this.rbFemale = new System.Windows.Forms.RadioButton();
+            this.lblGender = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -113,12 +118,15 @@ namespace Shijra
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(660, 291);
+            this.tabControl1.Size = new System.Drawing.Size(646, 317);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage1.Controls.Add(this.rbFemale);
+            this.tabPage1.Controls.Add(this.rbMale);
+            this.tabPage1.Controls.Add(this.label20);
             this.tabPage1.Controls.Add(this.txtUrduName);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.txtGFather);
@@ -142,7 +150,7 @@ namespace Shijra
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(652, 265);
+            this.tabPage1.Size = new System.Drawing.Size(638, 291);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "New Record";
             // 
@@ -150,8 +158,11 @@ namespace Shijra
             // 
             this.txtUrduName.Location = new System.Drawing.Point(90, 153);
             this.txtUrduName.Name = "txtUrduName";
+            this.txtUrduName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtUrduName.Size = new System.Drawing.Size(267, 20);
             this.txtUrduName.TabIndex = 19;
+            this.txtUrduName.Enter += new System.EventHandler(this.txtUrduName_Enter);
+            this.txtUrduName.Leave += new System.EventHandler(this.txtUrduName_Leave);
             // 
             // label19
             // 
@@ -231,7 +242,7 @@ namespace Shijra
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(148, 233);
+            this.btnSave.Location = new System.Drawing.Point(148, 261);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 9;
@@ -242,7 +253,7 @@ namespace Shijra
             // btnReset
             // 
             this.btnReset.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnReset.Location = new System.Drawing.Point(229, 233);
+            this.btnReset.Location = new System.Drawing.Point(229, 261);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 8;
@@ -394,6 +405,8 @@ namespace Shijra
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Controls.Add(this.lblGender);
+            this.tabPage3.Controls.Add(this.label23);
             this.tabPage3.Controls.Add(this.lblUrduName);
             this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.btnDelete);
@@ -415,7 +428,7 @@ namespace Shijra
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(652, 265);
+            this.tabPage3.Size = new System.Drawing.Size(638, 291);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "View";
             // 
@@ -439,7 +452,7 @@ namespace Shijra
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(215, 227);
+            this.btnDelete.Location = new System.Drawing.Point(215, 255);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 25;
@@ -449,7 +462,7 @@ namespace Shijra
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(123, 227);
+            this.btnEdit.Location = new System.Drawing.Point(123, 255);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 24;
@@ -587,13 +600,62 @@ namespace Shijra
             this.ddlFathersView.TabIndex = 2;
             this.ddlFathersView.SelectedIndexChanged += new System.EventHandler(this.ddlFathersView_SelectedIndexChanged);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(38, 237);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(42, 13);
+            this.label20.TabIndex = 20;
+            this.label20.Text = "Gender";
+            // 
+            // rbMale
+            // 
+            this.rbMale.AutoSize = true;
+            this.rbMale.Checked = true;
+            this.rbMale.Location = new System.Drawing.Point(90, 236);
+            this.rbMale.Name = "rbMale";
+            this.rbMale.Size = new System.Drawing.Size(48, 17);
+            this.rbMale.TabIndex = 21;
+            this.rbMale.TabStop = true;
+            this.rbMale.Text = "Male";
+            this.rbMale.UseVisualStyleBackColor = true;
+            // 
+            // rbFemale
+            // 
+            this.rbFemale.AutoSize = true;
+            this.rbFemale.Location = new System.Drawing.Point(148, 236);
+            this.rbFemale.Name = "rbFemale";
+            this.rbFemale.Size = new System.Drawing.Size(59, 17);
+            this.rbFemale.TabIndex = 22;
+            this.rbFemale.Text = "Female";
+            this.rbFemale.UseVisualStyleBackColor = true;
+            // 
+            // lblGender
+            // 
+            this.lblGender.AutoSize = true;
+            this.lblGender.Location = new System.Drawing.Point(85, 213);
+            this.lblGender.Name = "lblGender";
+            this.lblGender.Size = new System.Drawing.Size(10, 13);
+            this.lblGender.TabIndex = 29;
+            this.lblGender.Text = "-";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(33, 212);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(42, 13);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "Gender";
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnReset;
-            this.ClientSize = new System.Drawing.Size(660, 291);
+            this.ClientSize = new System.Drawing.Size(646, 317);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -663,6 +725,11 @@ namespace Shijra
         private Label label19;
         private Label lblUrduName;
         private Label label21;
+        private RadioButton rbFemale;
+        private RadioButton rbMale;
+        private Label label20;
+        private Label lblGender;
+        private Label label23;
 
 
     }

@@ -5,7 +5,7 @@
 -- -----------------------------------------------------------
 -- Entity Designer DDL Script for MySQL Server 4.1 and higher
 -- -----------------------------------------------------------
--- Date Created: 02/14/2013 15:08:07
+-- Date Created: 02/15/2013 15:25:18
 -- Generated from EDMX file: C:\Users\ahashmi\documents\visual studio 2010\Projects\Shijra\Shijra\Model\Shijra.edmx
 -- Target version: 2.0.0.0
 -- --------------------------------------------------
@@ -47,7 +47,8 @@ CREATE TABLE `Persons` (
     `MiddleName` varchar(100)  NULL,
     `LastName` varchar(100)  NULL,
     `FatherId` bigint  NOT NULL,
-    `UrduName` nvarchar(100)  NULL
+    `UrduName` nvarchar(100)  NULL,
+    `Gender` bool  NOT NULL
 );
 
 

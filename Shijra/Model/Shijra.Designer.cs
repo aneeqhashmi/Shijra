@@ -304,6 +304,30 @@ namespace Shijra.Model
         private global::System.String _UrduName;
         partial void OnUrduNameChanging(global::System.String value);
         partial void OnUrduNameChanged();
+    
+        /// <summary>
+        /// true for male, false for female
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Gender
+        {
+            get
+            {
+                return _Gender;
+            }
+            set
+            {
+                OnGenderChanging(value);
+                ReportPropertyChanging("Gender");
+                _Gender = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Gender");
+                OnGenderChanged();
+            }
+        }
+        private global::System.Boolean _Gender = true;
+        partial void OnGenderChanging(global::System.Boolean value);
+        partial void OnGenderChanged();
 
         #endregion
     

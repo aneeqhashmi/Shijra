@@ -47,11 +47,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtGrandFather = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.rbFemale = new System.Windows.Forms.RadioButton();
+            this.rbMale = new System.Windows.Forms.RadioButton();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtUrduName = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtOccupation
             // 
-            this.txtOccupation.Location = new System.Drawing.Point(80, 203);
+            this.txtOccupation.Location = new System.Drawing.Point(80, 229);
             this.txtOccupation.Name = "txtOccupation";
             this.txtOccupation.Size = new System.Drawing.Size(267, 20);
             this.txtOccupation.TabIndex = 27;
@@ -59,7 +64,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 206);
+            this.label14.Location = new System.Drawing.Point(9, 232);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(62, 13);
             this.label14.TabIndex = 26;
@@ -67,7 +72,7 @@
             // 
             // txtEducation
             // 
-            this.txtEducation.Location = new System.Drawing.Point(80, 177);
+            this.txtEducation.Location = new System.Drawing.Point(80, 203);
             this.txtEducation.Name = "txtEducation";
             this.txtEducation.Size = new System.Drawing.Size(267, 20);
             this.txtEducation.TabIndex = 25;
@@ -75,7 +80,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 180);
+            this.label12.Location = new System.Drawing.Point(16, 206);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 13);
             this.label12.TabIndex = 24;
@@ -161,7 +166,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(165, 231);
+            this.btnSave.Location = new System.Drawing.Point(163, 279);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 29;
@@ -183,14 +188,14 @@
             this.chkLstChilds.FormattingEnabled = true;
             this.chkLstChilds.Location = new System.Drawing.Point(367, 52);
             this.chkLstChilds.Name = "chkLstChilds";
-            this.chkLstChilds.Size = new System.Drawing.Size(247, 154);
+            this.chkLstChilds.Size = new System.Drawing.Size(247, 199);
             this.chkLstChilds.TabIndex = 32;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(364, 209);
+            this.label7.Location = new System.Drawing.Point(364, 254);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(229, 13);
             this.label7.TabIndex = 33;
@@ -213,11 +218,66 @@
             this.label8.TabIndex = 34;
             this.label8.Text = "Grand Father";
             // 
+            // rbFemale
+            // 
+            this.rbFemale.AutoSize = true;
+            this.rbFemale.Location = new System.Drawing.Point(138, 255);
+            this.rbFemale.Name = "rbFemale";
+            this.rbFemale.Size = new System.Drawing.Size(59, 17);
+            this.rbFemale.TabIndex = 38;
+            this.rbFemale.Text = "Female";
+            this.rbFemale.UseVisualStyleBackColor = true;
+            // 
+            // rbMale
+            // 
+            this.rbMale.AutoSize = true;
+            this.rbMale.Checked = true;
+            this.rbMale.Location = new System.Drawing.Point(80, 255);
+            this.rbMale.Name = "rbMale";
+            this.rbMale.Size = new System.Drawing.Size(48, 17);
+            this.rbMale.TabIndex = 37;
+            this.rbMale.TabStop = true;
+            this.rbMale.Text = "Male";
+            this.rbMale.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(28, 257);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(42, 13);
+            this.label20.TabIndex = 36;
+            this.label20.Text = "Gender";
+            // 
+            // txtUrduName
+            // 
+            this.txtUrduName.Location = new System.Drawing.Point(80, 177);
+            this.txtUrduName.Name = "txtUrduName";
+            this.txtUrduName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.txtUrduName.Size = new System.Drawing.Size(267, 20);
+            this.txtUrduName.TabIndex = 40;
+            this.txtUrduName.Enter += new System.EventHandler(this.txtUrduName_Enter);
+            this.txtUrduName.Leave += new System.EventHandler(this.txtUrduName_Leave);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(3, 181);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 13);
+            this.label19.TabIndex = 39;
+            this.label19.Text = "Name (Urdu)";
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 258);
+            this.ClientSize = new System.Drawing.Size(626, 308);
+            this.Controls.Add(this.txtUrduName);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.rbFemale);
+            this.Controls.Add(this.rbMale);
+            this.Controls.Add(this.label20);
             this.Controls.Add(this.txtGrandFather);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -266,5 +326,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtGrandFather;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton rbFemale;
+        private System.Windows.Forms.RadioButton rbMale;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtUrduName;
+        private System.Windows.Forms.Label label19;
     }
 }

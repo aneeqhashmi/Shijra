@@ -35,6 +35,7 @@
     <Property Name="LastName" Type="varchar" Nullable="true" MaxLength="100" />
     <Property Name="FatherId" Type="bigint" Nullable="false" />
     <Property Name="UrduName" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="Gender" Type="bool" Nullable="false" DefaultValue="true" />
   </EntityType>
   <Association Name="FK_persondetails">
     <End Role="persons" Type="shijraModel.Store.Persons" Multiplicity="1">
@@ -102,6 +103,11 @@
           <NavigationProperty Name="Childs" Relationship="shijraModel.FK_persons" FromRole="persons" ToRole="persons1" />
           <NavigationProperty Name="Father" Relationship="shijraModel.FK_persons" FromRole="persons1" ToRole="persons" />
           <Property Type="String" Name="UrduName" Unicode="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Gender" Nullable="false" DefaultValue="true" >
+            <Documentation>
+              <Summary>true for male, false for female</Summary>
+            </Documentation>
+          </Property>
         </EntityType>
         <Association Name="FK_persondetails">
           <End Role="persons" Type="shijraModel.Person" Multiplicity="1" >
@@ -156,6 +162,7 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="FatherId" ColumnName="FatherId" />
           <ScalarProperty Name="UrduName" ColumnName="UrduName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -181,16 +188,16 @@
     <Diagrams>
       <Diagram Name="Shijra">
         <EntityTypeShape EntityType="shijraModel.PersonDetail" Width="1.5" PointX="3" PointY="1.375" Height="1.7879850260416668" IsExpanded="true" />
-        <EntityTypeShape EntityType="shijraModel.Person" Width="1.5" PointX="0.75" PointY="1" Height="2.7494921875" IsExpanded="true" />
+        <EntityTypeShape EntityType="shijraModel.Person" Width="1.5" PointX="0.75" PointY="1" Height="2.9417936197916661" IsExpanded="true" />
         <AssociationConnector Association="shijraModel.FK_persondetails" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.2689925130208333" />
           <ConnectorPoint PointX="3" PointY="2.2689925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="shijraModel.FK_persons" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.2819230769230767" PointY="3.7494921875" />
-          <ConnectorPoint PointX="1.2819230769230767" PointY="3.9994921874999996" />
-          <ConnectorPoint PointX="1.7284615384615383" PointY="3.9994921874999996" />
-          <ConnectorPoint PointX="1.7284615384615383" PointY="3.7494921875" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="3.9417936197916661" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="4.1917936197916656" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="4.1917936197916656" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="3.9417936197916661" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

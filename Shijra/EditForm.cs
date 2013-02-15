@@ -45,6 +45,12 @@ namespace Shijra
                 txtFname.Text = PersonToEdit.FirstName;
                 txtMName.Text = string.IsNullOrEmpty(PersonToEdit.MiddleName) ? string.Empty : PersonToEdit.MiddleName;
                 txtLName.Text = string.IsNullOrEmpty(PersonToEdit.LastName) ? string.Empty : PersonToEdit.LastName;
+                txtUrduName.Text = string.IsNullOrEmpty(PersonToEdit.UrduName) ? string.Empty : PersonToEdit.UrduName;
+                if (PersonToEdit.Gender)
+                    rbMale.Checked = true;
+                else
+                    rbFemale.Checked = true;
+
                 if (PersonToEdit.Persondetail != null)
                 {
                     txtEducation.Text = string.IsNullOrEmpty(PersonToEdit.Persondetail.Education) ? string.Empty : PersonToEdit.Persondetail.Education;
@@ -72,7 +78,7 @@ namespace Shijra
         private bool ValidateData()
         {
             if (!string.IsNullOrEmpty(txtFname.Text.Trim())
-                && ddlFathers.SelectedIndex > 0)
+                && ddlFathers.SelectedIndex >= 0)
                 return true;
             else
                 return false;
@@ -88,10 +94,15 @@ namespace Shijra
 
             Model.Person updatedPerson = ShijraContext.entities.Persons.First(e => e.Id == PersonToEdit.Id);
             updatedPerson.FirstName = txtFname.Text.Trim();
-            updatedPerson.MiddleName = txtMName.Text.Trim();
-            updatedPerson.LastName = txtLName.Text.Trim();
+            if (!string.IsNullOrEmpty(txtMName.Text))
+                updatedPerson.MiddleName = txtMName.Text.Trim();
+            if (!string.IsNullOrEmpty(txtLName.Text))
+                updatedPerson.LastName = txtLName.Text.Trim();
+            if (!string.IsNullOrEmpty(txtUrduName.Text))
+                updatedPerson.UrduName = txtUrduName.Text.Trim();
 
             updatedPerson.FatherId = Convert.ToInt64(ddlFathers.SelectedValue);
+            updatedPerson.Gender = rbMale.Checked;
 
             if (!string.IsNullOrEmpty(txtEducation.Text.Trim()) || !string.IsNullOrEmpty(txtOccupation.Text.Trim()))
             {
@@ -147,6 +158,20 @@ namespace Shijra
 
             }
         }
+
+        private void txtUrduName_Enter(object sender, EventArgs e)
+        {
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ur-PK");
+            System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ci);
+
+        }
+
+        private void txtUrduName_Leave(object sender, EventArgs e)
+        {
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en");
+            System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ci);
+        }
+
 
     }
 }

@@ -93,6 +93,8 @@ namespace Shijra
 
             child.FatherId = Convert.ToInt64(ddlFathers.SelectedValue);
 
+            child.Gender = rbMale.Checked;
+
             if (!string.IsNullOrEmpty(txtEducation.Text.Trim()) || !string.IsNullOrEmpty(txtOccupation.Text.Trim()))
             {
                 child.Persondetail = new Model.PersonDetail();
@@ -233,6 +235,7 @@ namespace Shijra
             lblOccupation.Text = "-";
             lblEducation.Text = "-";
             lblUrduName.Text = "-";
+            lblGender.Text = "-";
         }
 
         private void DeleteChild(Model.Person p)
@@ -279,7 +282,7 @@ namespace Shijra
         private void btnReset_Click(object sender, EventArgs e)
         {
             LoadParents();
-            ddlFathers.SelectedIndex = 0;
+            ddlFathers.SelectedIndex = -1;
             txtGFather.Clear();
             txtFname.Clear();
             txtMName.Clear();
@@ -288,6 +291,7 @@ namespace Shijra
             txtOccupation.Clear();
             txtUrduName.Clear();
             txtFname.Focus();
+            rbMale.Checked = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -345,6 +349,7 @@ namespace Shijra
                 lblName.Text = person.FirstName + (string.IsNullOrEmpty(person.MiddleName) ? string.Empty : " " + person.MiddleName) + (string.IsNullOrEmpty(person.LastName) ? string.Empty : " " + person.LastName);
                 lblFather.Text = person.Father.FirstName + (string.IsNullOrEmpty(person.Father.MiddleName) ? string.Empty : " " + person.Father.MiddleName) + (string.IsNullOrEmpty(person.Father.LastName) ? string.Empty : " " + person.Father.LastName);
                 lblUrduName.Text = person.UrduName;
+                lblGender.Text = person.Gender ? "Male" : "Female";
                 if (person.Persondetail != null)
                 {
                     lblEducation.Text = string.IsNullOrEmpty(person.Persondetail.Education) ? "-" : person.Persondetail.Education;
@@ -403,8 +408,22 @@ namespace Shijra
             }
         }
 
+        private void txtUrduName_Enter(object sender, EventArgs e)
+        {
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ur-PK");
+            System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ci);
+
+        }
+
+        private void txtUrduName_Leave(object sender, EventArgs e)
+        {
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en");
+            System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ci);
+        }
 
         #endregion
+
+  
 
         
 
