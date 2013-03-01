@@ -291,7 +291,7 @@ namespace Shijra
             txtOccupation.Clear();
             txtUrduName.Clear();
             txtFname.Focus();
-            rbMale.Checked = true;
+            //rbMale.Checked = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

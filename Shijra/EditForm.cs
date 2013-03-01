@@ -96,10 +96,16 @@ namespace Shijra
             updatedPerson.FirstName = txtFname.Text.Trim();
             if (!string.IsNullOrEmpty(txtMName.Text))
                 updatedPerson.MiddleName = txtMName.Text.Trim();
+            else
+                updatedPerson.MiddleName = null;
             if (!string.IsNullOrEmpty(txtLName.Text))
                 updatedPerson.LastName = txtLName.Text.Trim();
+            else
+                updatedPerson.LastName = null;
             if (!string.IsNullOrEmpty(txtUrduName.Text))
                 updatedPerson.UrduName = txtUrduName.Text.Trim();
+            else
+                updatedPerson.UrduName = null;
 
             updatedPerson.FatherId = Convert.ToInt64(ddlFathers.SelectedValue);
             updatedPerson.Gender = rbMale.Checked;
