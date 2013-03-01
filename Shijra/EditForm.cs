@@ -72,7 +72,11 @@ namespace Shijra
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            if (Save())
+            {
+                MessageBox.Show("Record Updated Successfully");
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         private bool ValidateData()
@@ -84,12 +88,12 @@ namespace Shijra
                 return false;
         }
 
-        private void Save()
+        private bool Save()
         {
             if (!ValidateData())
             {
                 MessageBox.Show("Given Data is not complete or valid");
-                return;
+                return false;
             }
 
             Model.Person updatedPerson = ShijraContext.entities.Persons.First(e => e.Id == PersonToEdit.Id);
@@ -129,7 +133,7 @@ namespace Shijra
                 if (result == System.Windows.Forms.DialogResult.No)
                 {
                     MessageBox.Show("Record not updated. If you dont want to delete childs then please uncheck them.");
-                    return;
+                    return false;
                 }
             }
 
@@ -143,9 +147,7 @@ namespace Shijra
 
             ShijraContext.entities.SaveChanges();
 
-            MessageBox.Show("Record Updated Successfully");
-
-            this.DialogResult = DialogResult.OK;
+            return true;
 
         }
 
@@ -176,6 +178,32 @@ namespace Shijra
         {
             System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en");
             System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ci);
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (Save())
+            {
+                 PersonToEdit = ShijraContext.entities.Persons.Where(p => p.Id == PersonToEdit.Id + 1).First();
+                 if (PersonToEdit != null)
+                 {
+                     LoadParents();
+                     LoadData();
+                 }
+            }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (Save())
+            {
+                if (PersonToEdit.Id > 1)
+                {
+                    PersonToEdit = ShijraContext.entities.Persons.Where(p => p.Id == PersonToEdit.Id - 1).First();
+                    LoadParents();
+                    LoadData();
+                }
+            }
         }
 
 

@@ -52,6 +52,8 @@
             this.label20 = new System.Windows.Forms.Label();
             this.txtUrduName = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtOccupation
@@ -268,11 +270,33 @@
             this.label19.TabIndex = 39;
             this.label19.Text = "Name (Urdu)";
             // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(244, 279);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 41;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(82, 279);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 42;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 308);
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.txtUrduName);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.rbFemale);
@@ -331,5 +355,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtUrduName;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnBack;
     }
 }
