@@ -58,6 +58,7 @@ namespace Shijra.Helpers
             Visio.Shape DropShape = ActivePage.Drop(shapetodrop, x, y);
             // set the name on the shape
             DropShape.Name = name;
+            
             //now lets set the text on the shape
             DropShape.Text = name;
         }

@@ -425,38 +425,50 @@ namespace Shijra
 
         private void btnGraph_Click(object sender, EventArgs e)
         {
-            int id = 1;
+            int id = 36;
             Model.Person person = ShijraContext.entities.Persons.Where(p => p.Id == id).First();
 
             //create the object that will do the drawing
             VisioDrawer Drawer = new VisioDrawer();
 
-            // drop some shapes
-            Drawer.DropShape("sample1", 4, 4);
-            Drawer.DropShape("sample2", 4, 7);
+            Drawer.DropShape(person.Id.ToString(), 0, 0);
 
-            //  get the two shapes we just drew 
-            Visio.Shape Sample1 = Drawer.GetShapeByName("sample1");
-            Sample1.Text = "Aneeq" + Environment.NewLine + "انیق";
+            DrawPersons(person, Drawer);
 
-            Visio.Shape Sample2 = Drawer.GetShapeByName("sample2");
+            //// drop some shapes
+            //Drawer.DropShape("sample1", 4, 4);
+            //Drawer.DropShape("sample2", 4, 7);
 
-            // now connect the shapes together
-            Drawer.ConnectShapes(Sample1, Sample2);
+            ////  get the two shapes we just drew 
+            //Visio.Shape Sample1 = Drawer.GetShapeByName("sample1");
+            //Sample1.Text = "Aneeq" + Environment.NewLine + "انیق";
+
+            //Visio.Shape Sample2 = Drawer.GetShapeByName("sample2");
+
+            //// now connect the shapes together
+            //Drawer.ConnectShapes(Sample1, Sample2);
+
+            MessageBox.Show("Graph Generated");
         }
 
         private void DrawPersons(Model.Person p, VisioDrawer d)
         {
-            d.DropShape(p.Id.ToString(), 4, 4);
+            
             Visio.Shape personShape = d.GetShapeByName(p.Id.ToString());
             personShape.Text = p.Name + Environment.NewLine + p.UrduName;
 
             foreach (Model.Person child in p.Childs)
             {
+                if (p.Id == child.Id)
+                    continue;
                 d.DropShape(child.Id.ToString(), 4, 4);
                 Visio.Shape childShape = d.GetShapeByName(child.Id.ToString());
+                //string[] urduarr = child.UrduName.Split(new char[] { ' ' }).Reverse().ToArray();
+                //string urduName = string.Join(" ",urduarr); 
                 childShape.Text = child.Name + Environment.NewLine + child.UrduName;
                 d.ConnectShapes(personShape, childShape);
+                if(child.Id < 50)
+                    DrawPersons(child, d);
             }
 
         }
