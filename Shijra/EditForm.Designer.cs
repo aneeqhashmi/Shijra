@@ -61,7 +61,7 @@
             this.txtOccupation.Location = new System.Drawing.Point(80, 229);
             this.txtOccupation.Name = "txtOccupation";
             this.txtOccupation.Size = new System.Drawing.Size(267, 20);
-            this.txtOccupation.TabIndex = 27;
+            this.txtOccupation.TabIndex = 7;
             // 
             // label14
             // 
@@ -77,7 +77,7 @@
             this.txtEducation.Location = new System.Drawing.Point(80, 203);
             this.txtEducation.Name = "txtEducation";
             this.txtEducation.Size = new System.Drawing.Size(267, 20);
-            this.txtEducation.TabIndex = 25;
+            this.txtEducation.TabIndex = 6;
             // 
             // label12
             // 
@@ -93,21 +93,21 @@
             this.txtLName.Location = new System.Drawing.Point(80, 151);
             this.txtLName.Name = "txtLName";
             this.txtLName.Size = new System.Drawing.Size(267, 20);
-            this.txtLName.TabIndex = 23;
+            this.txtLName.TabIndex = 4;
             // 
             // txtMName
             // 
             this.txtMName.Location = new System.Drawing.Point(80, 125);
             this.txtMName.Name = "txtMName";
             this.txtMName.Size = new System.Drawing.Size(267, 20);
-            this.txtMName.TabIndex = 22;
+            this.txtMName.TabIndex = 3;
             // 
             // txtFname
             // 
             this.txtFname.Location = new System.Drawing.Point(80, 98);
             this.txtFname.Name = "txtFname";
             this.txtFname.Size = new System.Drawing.Size(267, 20);
-            this.txtFname.TabIndex = 21;
+            this.txtFname.TabIndex = 2;
             // 
             // label4
             // 
@@ -144,7 +144,7 @@
             this.ddlFathers.Location = new System.Drawing.Point(80, 71);
             this.ddlFathers.Name = "ddlFathers";
             this.ddlFathers.Size = new System.Drawing.Size(267, 21);
-            this.ddlFathers.TabIndex = 17;
+            this.ddlFathers.TabIndex = 1;
             this.ddlFathers.SelectedIndexChanged += new System.EventHandler(this.ddlFathers_SelectedIndexChanged);
             // 
             // label1
@@ -171,7 +171,7 @@
             this.btnSave.Location = new System.Drawing.Point(163, 279);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 29;
+            this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -226,7 +226,7 @@
             this.rbFemale.Location = new System.Drawing.Point(138, 255);
             this.rbFemale.Name = "rbFemale";
             this.rbFemale.Size = new System.Drawing.Size(59, 17);
-            this.rbFemale.TabIndex = 38;
+            this.rbFemale.TabIndex = 9;
             this.rbFemale.Text = "Female";
             this.rbFemale.UseVisualStyleBackColor = true;
             // 
@@ -237,7 +237,7 @@
             this.rbMale.Location = new System.Drawing.Point(80, 255);
             this.rbMale.Name = "rbMale";
             this.rbMale.Size = new System.Drawing.Size(48, 17);
-            this.rbMale.TabIndex = 37;
+            this.rbMale.TabIndex = 8;
             this.rbMale.TabStop = true;
             this.rbMale.Text = "Male";
             this.rbMale.UseVisualStyleBackColor = true;
@@ -257,7 +257,7 @@
             this.txtUrduName.Name = "txtUrduName";
             this.txtUrduName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtUrduName.Size = new System.Drawing.Size(267, 20);
-            this.txtUrduName.TabIndex = 40;
+            this.txtUrduName.TabIndex = 5;
             this.txtUrduName.Enter += new System.EventHandler(this.txtUrduName_Enter);
             this.txtUrduName.Leave += new System.EventHandler(this.txtUrduName_Leave);
             // 
@@ -275,7 +275,7 @@
             this.btnNext.Location = new System.Drawing.Point(244, 279);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 41;
+            this.btnNext.TabIndex = 12;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -285,7 +285,7 @@
             this.btnBack.Location = new System.Drawing.Point(82, 279);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 42;
+            this.btnBack.TabIndex = 10;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);

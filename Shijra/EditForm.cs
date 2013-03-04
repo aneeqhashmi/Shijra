@@ -16,6 +16,7 @@ namespace Shijra
         {
             InitializeComponent();
             LoadParents();
+            this.AcceptButton = btnNext;
         }
 
         public Model.Person PersonToEdit
@@ -184,9 +185,10 @@ namespace Shijra
         {
             if (Save())
             {
-                 PersonToEdit = ShijraContext.entities.Persons.Where(p => p.Id == PersonToEdit.Id + 1).First();
-                 if (PersonToEdit != null)
+                 List<Model.Person> persons = ShijraContext.entities.Persons.Where(p => p.Id == PersonToEdit.Id + 1).ToList();
+                 if (persons != null && persons.Count > 0)
                  {
+                     PersonToEdit = persons[0];
                      LoadParents();
                      LoadData();
                  }

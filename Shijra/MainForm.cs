@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using MySql.Data.MySqlClient;
+using Shijra.Helpers;
+using Visio = Microsoft.Office.Interop.Visio;
 
 namespace Shijra
 {
@@ -421,8 +423,47 @@ namespace Shijra
             System.Windows.Forms.InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(ci);
         }
 
+        private void btnGraph_Click(object sender, EventArgs e)
+        {
+            int id = 1;
+            Model.Person person = ShijraContext.entities.Persons.Where(p => p.Id == id).First();
+
+            //create the object that will do the drawing
+            VisioDrawer Drawer = new VisioDrawer();
+
+            // drop some shapes
+            Drawer.DropShape("sample1", 4, 4);
+            Drawer.DropShape("sample2", 4, 7);
+
+            //  get the two shapes we just drew 
+            Visio.Shape Sample1 = Drawer.GetShapeByName("sample1");
+            Sample1.Text = "Aneeq" + Environment.NewLine + "انیق";
+
+            Visio.Shape Sample2 = Drawer.GetShapeByName("sample2");
+
+            // now connect the shapes together
+            Drawer.ConnectShapes(Sample1, Sample2);
+        }
+
+        private void DrawPersons(Model.Person p, VisioDrawer d)
+        {
+            d.DropShape(p.Id.ToString(), 4, 4);
+            Visio.Shape personShape = d.GetShapeByName(p.Id.ToString());
+            personShape.Text = p.Name + Environment.NewLine + p.UrduName;
+
+            foreach (Model.Person child in p.Childs)
+            {
+                d.DropShape(child.Id.ToString(), 4, 4);
+                Visio.Shape childShape = d.GetShapeByName(child.Id.ToString());
+                childShape.Text = child.Name + Environment.NewLine + child.UrduName;
+                d.ConnectShapes(personShape, childShape);
+            }
+
+        }
+
         #endregion
 
+       
   
 
         

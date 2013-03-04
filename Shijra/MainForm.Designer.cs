@@ -34,6 +34,9 @@ namespace Shijra
             this.dialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.rbFemale = new System.Windows.Forms.RadioButton();
+            this.rbMale = new System.Windows.Forms.RadioButton();
+            this.label20 = new System.Windows.Forms.Label();
             this.txtUrduName = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtGFather = new System.Windows.Forms.TextBox();
@@ -62,6 +65,8 @@ namespace Shijra
             this.label15 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblGender = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.lblUrduName = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -80,11 +85,7 @@ namespace Shijra
             this.lstChildsView = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ddlFathersView = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.rbMale = new System.Windows.Forms.RadioButton();
-            this.rbFemale = new System.Windows.Forms.RadioButton();
-            this.lblGender = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.btnGraph = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -153,6 +154,37 @@ namespace Shijra
             this.tabPage1.Size = new System.Drawing.Size(638, 291);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "New Record";
+            // 
+            // rbFemale
+            // 
+            this.rbFemale.AutoSize = true;
+            this.rbFemale.Location = new System.Drawing.Point(148, 236);
+            this.rbFemale.Name = "rbFemale";
+            this.rbFemale.Size = new System.Drawing.Size(59, 17);
+            this.rbFemale.TabIndex = 22;
+            this.rbFemale.Text = "Female";
+            this.rbFemale.UseVisualStyleBackColor = true;
+            // 
+            // rbMale
+            // 
+            this.rbMale.AutoSize = true;
+            this.rbMale.Checked = true;
+            this.rbMale.Location = new System.Drawing.Point(90, 236);
+            this.rbMale.Name = "rbMale";
+            this.rbMale.Size = new System.Drawing.Size(48, 17);
+            this.rbMale.TabIndex = 21;
+            this.rbMale.TabStop = true;
+            this.rbMale.Text = "Male";
+            this.rbMale.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(38, 237);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(42, 13);
+            this.label20.TabIndex = 20;
+            this.label20.Text = "Gender";
             // 
             // txtUrduName
             // 
@@ -343,7 +375,7 @@ namespace Shijra
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(652, 265);
+            this.tabPage2.Size = new System.Drawing.Size(638, 291);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import";
             // 
@@ -405,6 +437,7 @@ namespace Shijra
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Controls.Add(this.btnGraph);
             this.tabPage3.Controls.Add(this.lblGender);
             this.tabPage3.Controls.Add(this.label23);
             this.tabPage3.Controls.Add(this.lblUrduName);
@@ -431,6 +464,24 @@ namespace Shijra
             this.tabPage3.Size = new System.Drawing.Size(638, 291);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "View";
+            // 
+            // lblGender
+            // 
+            this.lblGender.AutoSize = true;
+            this.lblGender.Location = new System.Drawing.Point(85, 213);
+            this.lblGender.Name = "lblGender";
+            this.lblGender.Size = new System.Drawing.Size(10, 13);
+            this.lblGender.TabIndex = 29;
+            this.lblGender.Text = "-";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(33, 212);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(42, 13);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "Gender";
             // 
             // lblUrduName
             // 
@@ -600,54 +651,15 @@ namespace Shijra
             this.ddlFathersView.TabIndex = 2;
             this.ddlFathersView.SelectedIndexChanged += new System.EventHandler(this.ddlFathersView_SelectedIndexChanged);
             // 
-            // label20
+            // btnGraph
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(38, 237);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(42, 13);
-            this.label20.TabIndex = 20;
-            this.label20.Text = "Gender";
-            // 
-            // rbMale
-            // 
-            this.rbMale.AutoSize = true;
-            this.rbMale.Checked = true;
-            this.rbMale.Location = new System.Drawing.Point(90, 236);
-            this.rbMale.Name = "rbMale";
-            this.rbMale.Size = new System.Drawing.Size(48, 17);
-            this.rbMale.TabIndex = 21;
-            this.rbMale.TabStop = true;
-            this.rbMale.Text = "Male";
-            this.rbMale.UseVisualStyleBackColor = true;
-            // 
-            // rbFemale
-            // 
-            this.rbFemale.AutoSize = true;
-            this.rbFemale.Location = new System.Drawing.Point(148, 236);
-            this.rbFemale.Name = "rbFemale";
-            this.rbFemale.Size = new System.Drawing.Size(59, 17);
-            this.rbFemale.TabIndex = 22;
-            this.rbFemale.Text = "Female";
-            this.rbFemale.UseVisualStyleBackColor = true;
-            // 
-            // lblGender
-            // 
-            this.lblGender.AutoSize = true;
-            this.lblGender.Location = new System.Drawing.Point(85, 213);
-            this.lblGender.Name = "lblGender";
-            this.lblGender.Size = new System.Drawing.Size(10, 13);
-            this.lblGender.TabIndex = 29;
-            this.lblGender.Text = "-";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(33, 212);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(42, 13);
-            this.label23.TabIndex = 28;
-            this.label23.Text = "Gender";
+            this.btnGraph.Location = new System.Drawing.Point(389, 255);
+            this.btnGraph.Name = "btnGraph";
+            this.btnGraph.Size = new System.Drawing.Size(241, 23);
+            this.btnGraph.TabIndex = 30;
+            this.btnGraph.Text = "Create Graph";
+            this.btnGraph.UseVisualStyleBackColor = true;
+            this.btnGraph.Click += new System.EventHandler(this.btnGraph_Click);
             // 
             // MainForm
             // 
@@ -730,6 +742,7 @@ namespace Shijra
         private Label label20;
         private Label lblGender;
         private Label label23;
+        private Button btnGraph;
 
 
     }
