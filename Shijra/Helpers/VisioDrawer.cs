@@ -31,9 +31,11 @@ namespace Shijra.Helpers
             // if we do not do this we get throw an exception
             VisApp.Documents.Add(@"");
             MastersDocuments = VisApp.Documents;
+            
             // open the page holding the masters collection so we can use it
             // Basic_U.vss is the name of the collection, you could use a different collection
             MasterDoc = MastersDocuments.OpenEx(@"Basic_U.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
+            
             // now get a masters collection to use 
             Masters = MasterDoc.Masters;
             // now get the active document
@@ -54,6 +56,7 @@ namespace Shijra.Helpers
             //get the shape to drop from the masters collection
             //this time it is a simple rectangle
             Visio.Master shapetodrop = GetMaster(@"Rounded rectangle");
+            
             // drop a shape on the page
             Visio.Shape DropShape = ActivePage.Drop(shapetodrop, x, y);
             // set the name on the shape
@@ -72,7 +75,7 @@ namespace Shijra.Helpers
 
             // we need to put the connector on the page before we can use it
             Visio.Shape Connector = ActivePage.Drop(ConnectionMaster, 9, 9);
-
+            
             //now get one end of the connector
             Visio.Cell beginXCell = Connector.get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject,
                          (short)Visio.VisRowIndices.visRowXForm1D,

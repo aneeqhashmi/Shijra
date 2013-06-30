@@ -65,6 +65,7 @@ namespace Shijra
             this.label15 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnGraph = new System.Windows.Forms.Button();
             this.lblGender = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.lblUrduName = new System.Windows.Forms.Label();
@@ -85,7 +86,8 @@ namespace Shijra
             this.lstChildsView = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ddlFathersView = new System.Windows.Forms.ComboBox();
-            this.btnGraph = new System.Windows.Forms.Button();
+            this.txtStart = new System.Windows.Forms.TextBox();
+            this.txtEnd = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -437,6 +439,8 @@ namespace Shijra
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Controls.Add(this.txtEnd);
+            this.tabPage3.Controls.Add(this.txtStart);
             this.tabPage3.Controls.Add(this.btnGraph);
             this.tabPage3.Controls.Add(this.lblGender);
             this.tabPage3.Controls.Add(this.label23);
@@ -464,6 +468,16 @@ namespace Shijra
             this.tabPage3.Size = new System.Drawing.Size(638, 291);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "View";
+            // 
+            // btnGraph
+            // 
+            this.btnGraph.Location = new System.Drawing.Point(389, 255);
+            this.btnGraph.Name = "btnGraph";
+            this.btnGraph.Size = new System.Drawing.Size(241, 23);
+            this.btnGraph.TabIndex = 30;
+            this.btnGraph.Text = "Create Graph";
+            this.btnGraph.UseVisualStyleBackColor = true;
+            this.btnGraph.Click += new System.EventHandler(this.btnGraph_Click);
             // 
             // lblGender
             // 
@@ -651,15 +665,19 @@ namespace Shijra
             this.ddlFathersView.TabIndex = 2;
             this.ddlFathersView.SelectedIndexChanged += new System.EventHandler(this.ddlFathersView_SelectedIndexChanged);
             // 
-            // btnGraph
+            // txtStart
             // 
-            this.btnGraph.Location = new System.Drawing.Point(389, 255);
-            this.btnGraph.Name = "btnGraph";
-            this.btnGraph.Size = new System.Drawing.Size(241, 23);
-            this.btnGraph.TabIndex = 30;
-            this.btnGraph.Text = "Create Graph";
-            this.btnGraph.UseVisualStyleBackColor = true;
-            this.btnGraph.Click += new System.EventHandler(this.btnGraph_Click);
+            this.txtStart.Location = new System.Drawing.Point(392, 231);
+            this.txtStart.Name = "txtStart";
+            this.txtStart.Size = new System.Drawing.Size(100, 20);
+            this.txtStart.TabIndex = 31;
+            // 
+            // txtEnd
+            // 
+            this.txtEnd.Location = new System.Drawing.Point(530, 231);
+            this.txtEnd.Name = "txtEnd";
+            this.txtEnd.Size = new System.Drawing.Size(100, 20);
+            this.txtEnd.TabIndex = 32;
             // 
             // MainForm
             // 
@@ -743,6 +761,8 @@ namespace Shijra
         private Label lblGender;
         private Label label23;
         private Button btnGraph;
+        private TextBox txtEnd;
+        private TextBox txtStart;
 
 
     }

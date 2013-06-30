@@ -425,51 +425,68 @@ namespace Shijra
 
         private void btnGraph_Click(object sender, EventArgs e)
         {
-            int id = 36;
-            Model.Person person = ShijraContext.entities.Persons.Where(p => p.Id == id).First();
-
+            int id = Convert.ToInt32(string.IsNullOrEmpty(txtStart.Text.Trim()) ? "0": txtStart.Text.Trim());
+            int lastId = Convert.ToInt32(string.IsNullOrEmpty(txtEnd.Text.Trim()) ? "0" : txtEnd.Text.Trim());
+            
             //create the object that will do the drawing
             VisioDrawer Drawer = new VisioDrawer();
 
-            Drawer.DropShape(person.Id.ToString(), 0, 0);
+            for (int count = id; id <= lastId; id++)
+            {
+                Model.Person person = ShijraContext.entities.Persons.Where(p => p.Id == id).First();
 
-            DrawPersons(person, Drawer);
+                Drawer.DropShape(person.Id.ToString(), 4, 4);
 
-            //// drop some shapes
-            //Drawer.DropShape("sample1", 4, 4);
-            //Drawer.DropShape("sample2", 4, 7);
-
-            ////  get the two shapes we just drew 
-            //Visio.Shape Sample1 = Drawer.GetShapeByName("sample1");
-            //Sample1.Text = "Aneeq" + Environment.NewLine + "انیق";
-
-            //Visio.Shape Sample2 = Drawer.GetShapeByName("sample2");
-
-            //// now connect the shapes together
-            //Drawer.ConnectShapes(Sample1, Sample2);
+                DrawPersons(person, Drawer);
+            }
 
             MessageBox.Show("Graph Generated");
         }
 
         private void DrawPersons(Model.Person p, VisioDrawer d)
         {
-            
+            int lastId = Convert.ToInt32(string.IsNullOrEmpty(txtEnd.Text.Trim()) ? "0" : txtEnd.Text.Trim());
             Visio.Shape personShape = d.GetShapeByName(p.Id.ToString());
-            personShape.Text = p.Name + Environment.NewLine + p.UrduName;
-
-            foreach (Model.Person child in p.Childs)
+            string[] urduarr = p.UrduName.Split(new char[] { ' ' }).Reverse().ToArray();
+            if(p.UrduName.Contains(')'))
             {
-                if (p.Id == child.Id)
-                    continue;
-                d.DropShape(child.Id.ToString(), 4, 4);
-                Visio.Shape childShape = d.GetShapeByName(child.Id.ToString());
-                //string[] urduarr = child.UrduName.Split(new char[] { ' ' }).Reverse().ToArray();
-                //string urduName = string.Join(" ",urduarr); 
-                childShape.Text = child.Name + Environment.NewLine + child.UrduName;
-                d.ConnectShapes(personShape, childShape);
-                if(child.Id < 50)
-                    DrawPersons(child, d);
+                for(int count = 0; count < urduarr.Length; count++)
+                {
+                    if(urduarr[count].Contains('('))
+                        urduarr[count] = urduarr[count].Replace("(","") + ")";
+
+                    if (urduarr[count].Contains(')'))
+                        urduarr[count] = "(" + urduarr[count].Replace(")", "");
+                }
             }
+            string urduName = string.Join(" ", urduarr); 
+            personShape.Text = p.Name + Environment.NewLine + urduName;
+            
+
+            //foreach (Model.Person child in p.Childs)
+            //{
+            //    if (p.Id == child.Id)
+            //        continue;
+            //    d.DropShape(child.Id.ToString(), 4, 4);
+            //    Visio.Shape childShape = d.GetShapeByName(child.Id.ToString());
+            //    urduarr = child.UrduName.Split(new char[] { ' ' }).Reverse().ToArray();
+            //    if (child.UrduName.Contains(')'))
+            //    {
+            //        for (int count = 0; count < urduarr.Length; count++)
+            //        {
+            //            if (urduarr[count].Contains('('))
+            //                urduarr[count] = urduarr[count].Replace("(", "") + ")";
+
+            //            else if (urduarr[count].Contains(')'))
+            //                urduarr[count] = "(" + urduarr[count].Replace(")", "");
+            //        }
+            //    }
+            //    urduName = string.Join(" ", urduarr);
+            //    childShape.Text = child.Name + Environment.NewLine + urduName;
+            //    d.ConnectShapes(personShape, childShape);
+            //    if(lastId == 0 || child.Id <= lastId)
+            //        DrawPersons(child, d);
+            //}
 
         }
 
