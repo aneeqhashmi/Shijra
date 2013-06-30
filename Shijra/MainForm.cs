@@ -89,7 +89,7 @@ namespace Shijra
 
             if (!string.IsNullOrEmpty(txtLName.Text.Trim()))
                 child.LastName = txtLName.Text.Trim();
-            
+
             if (!string.IsNullOrEmpty(txtUrduName.Text.Trim()))
                 child.UrduName = txtUrduName.Text.Trim();
 
@@ -207,7 +207,7 @@ namespace Shijra
 
         private void LoadParents()
         {
-            
+
             List<Model.Person> fathers = ShijraContext.entities.Persons.OrderBy(x => x.FirstName).ToList();
 
             fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
@@ -248,7 +248,7 @@ namespace Shijra
             //}
             //else
             //{
-                ShijraContext.entities.Persons.DeleteObject(p);
+            ShijraContext.entities.Persons.DeleteObject(p);
             //
         }
 
@@ -329,8 +329,8 @@ namespace Shijra
             if (ddlFathersView.SelectedIndex >= 0)
             {
                 Model.Person person = (Model.Person)ddlFathersView.SelectedItem;
-                
-                List<Model.Person> childs = person.Childs.OrderBy(c=> c.Id).ToList();
+
+                List<Model.Person> childs = person.Childs.OrderBy(c => c.Id).ToList();
 
                 childs.RemoveAll(c => c.Id == person.Id);
 
@@ -392,7 +392,7 @@ namespace Shijra
 
         private void lstChildsView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if(lstChildsView.SelectedItem is Model.Person)
+            if (lstChildsView.SelectedItem is Model.Person)
                 ddlFathersView.SelectedValue = ((Model.Person)lstChildsView.SelectedItem).Id;
         }
 
@@ -425,9 +425,9 @@ namespace Shijra
 
         private void btnGraph_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(string.IsNullOrEmpty(txtStart.Text.Trim()) ? "0": txtStart.Text.Trim());
+            int id = Convert.ToInt32(string.IsNullOrEmpty(txtStart.Text.Trim()) ? "0" : txtStart.Text.Trim());
             int lastId = Convert.ToInt32(string.IsNullOrEmpty(txtEnd.Text.Trim()) ? "0" : txtEnd.Text.Trim());
-            
+
             //create the object that will do the drawing
             VisioDrawer Drawer = new VisioDrawer();
 
@@ -448,20 +448,24 @@ namespace Shijra
             int lastId = Convert.ToInt32(string.IsNullOrEmpty(txtEnd.Text.Trim()) ? "0" : txtEnd.Text.Trim());
             Visio.Shape personShape = d.GetShapeByName(p.Id.ToString());
             string[] urduarr = p.UrduName.Split(new char[] { ' ' }).Reverse().ToArray();
-            if(p.UrduName.Contains(')'))
+            if (p.UrduName.Contains(')'))
             {
-                for(int count = 0; count < urduarr.Length; count++)
+                for (int count = 0; count < urduarr.Length; count++)
                 {
-                    if(urduarr[count].Contains('('))
-                        urduarr[count] = urduarr[count].Replace("(","") + ")";
+                    if (urduarr[count].Contains('('))
+                        urduarr[count] = urduarr[count].Replace("(", "") + ")";
 
                     if (urduarr[count].Contains(')'))
                         urduarr[count] = "(" + urduarr[count].Replace(")", "");
                 }
             }
-            string urduName = string.Join(" ", urduarr); 
-            personShape.Text = p.Name + Environment.NewLine + urduName;
-            
+            string urduName = string.Join(" ", urduarr);
+
+            if (p.Gender)
+                personShape.Text = p.Name + Environment.NewLine + urduName;
+            else
+                personShape.Text = "(" + p.Name + ")" + Environment.NewLine + urduName;
+
 
             //foreach (Model.Person child in p.Childs)
             //{
@@ -492,10 +496,10 @@ namespace Shijra
 
         #endregion
 
-       
-  
 
-        
+
+
+
 
     }
 }
