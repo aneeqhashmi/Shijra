@@ -8,18 +8,19 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.Data.Objects;
-using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
 using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Objects.DataClasses;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("shijraModel", "FK_persondetails", "persons", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Shijra.Model.Person), "persondetails", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Shijra.Model.PersonDetail), true)]
-[assembly: EdmRelationshipAttribute("shijraModel", "FK_persons", "persons", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Shijra.Model.Person), "persons1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Shijra.Model.Person), true)]
+[assembly: EdmRelationshipAttribute("shijraModel", "FK_persondetails", "persons", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Shijra.Model.Person), "persondetails", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Shijra.Model.PersonDetail), true)]
+[assembly: EdmRelationshipAttribute("shijraModel", "FK_persons", "persons", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(Shijra.Model.Person), "persons1", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Shijra.Model.Person), true)]
 
 #endregion
 
@@ -104,6 +105,7 @@ namespace Shijra.Model
         private ObjectSet<Person> _Persons;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -123,11 +125,11 @@ namespace Shijra.Model
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -156,6 +158,7 @@ namespace Shijra.Model
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -330,6 +333,7 @@ namespace Shijra.Model
         partial void OnGenderChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -432,6 +436,7 @@ namespace Shijra.Model
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -456,6 +461,7 @@ namespace Shijra.Model
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -534,6 +540,7 @@ namespace Shijra.Model
         partial void OnOccupationChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -576,8 +583,10 @@ namespace Shijra.Model
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }
