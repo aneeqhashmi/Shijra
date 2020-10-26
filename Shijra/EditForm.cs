@@ -29,7 +29,7 @@ namespace Shijra
         {
             List<Model.Person> fathers = ShijraContext.entities.Persons.OrderBy(x => x.FirstName).ToList();
 
-            fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
+            //fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
             ddlFathers.DataSource = fathers;
             ddlFathers.DisplayMember = "Name";
@@ -58,7 +58,7 @@ namespace Shijra
                     txtOccupation.Text = string.IsNullOrEmpty(PersonToEdit.Persondetail.Occupation) ? string.Empty : PersonToEdit.Persondetail.Occupation;
                 }
                 List<Model.Person> childs = PersonToEdit.Childs.OrderBy(c => c.Id).ToList();
-                childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
+                //childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
                 chkLstChilds.DataSource = childs;
                 chkLstChilds.DisplayMember = "Name";

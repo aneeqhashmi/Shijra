@@ -29,6 +29,15 @@ namespace Shijra.Model
 {
     public partial class Person
     {
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                var name = FirstName + (MiddleName != null ? $" {MiddleName}" : "") + (LastName != null ? $" {LastName}" : "");
+                return name;
+            }
+        }
+
+        
     }
 }

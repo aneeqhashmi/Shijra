@@ -65,6 +65,9 @@ namespace Shijra
             this.label15 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnExportToFirebase = new System.Windows.Forms.Button();
+            this.txtEnd = new System.Windows.Forms.TextBox();
+            this.txtStart = new System.Windows.Forms.TextBox();
             this.btnGraph = new System.Windows.Forms.Button();
             this.lblGender = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -86,8 +89,8 @@ namespace Shijra
             this.lstChildsView = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.ddlFathersView = new System.Windows.Forms.ComboBox();
-            this.txtStart = new System.Windows.Forms.TextBox();
-            this.txtEnd = new System.Windows.Forms.TextBox();
+            this.exportProgressBar = new System.Windows.Forms.ProgressBar();
+            this.lblProgress = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -121,7 +124,7 @@ namespace Shijra
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(646, 317);
+            this.tabControl1.Size = new System.Drawing.Size(647, 337);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -439,6 +442,9 @@ namespace Shijra
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Controls.Add(this.lblProgress);
+            this.tabPage3.Controls.Add(this.exportProgressBar);
+            this.tabPage3.Controls.Add(this.btnExportToFirebase);
             this.tabPage3.Controls.Add(this.txtEnd);
             this.tabPage3.Controls.Add(this.txtStart);
             this.tabPage3.Controls.Add(this.btnGraph);
@@ -465,9 +471,33 @@ namespace Shijra
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(638, 291);
+            this.tabPage3.Size = new System.Drawing.Size(639, 311);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "View";
+            // 
+            // btnExportToFirebase
+            // 
+            this.btnExportToFirebase.Location = new System.Drawing.Point(303, 255);
+            this.btnExportToFirebase.Name = "btnExportToFirebase";
+            this.btnExportToFirebase.Size = new System.Drawing.Size(75, 23);
+            this.btnExportToFirebase.TabIndex = 33;
+            this.btnExportToFirebase.Text = "Export";
+            this.btnExportToFirebase.UseVisualStyleBackColor = true;
+            this.btnExportToFirebase.Click += new System.EventHandler(this.btnExportToFirebase_ClickAsync);
+            // 
+            // txtEnd
+            // 
+            this.txtEnd.Location = new System.Drawing.Point(530, 231);
+            this.txtEnd.Name = "txtEnd";
+            this.txtEnd.Size = new System.Drawing.Size(100, 20);
+            this.txtEnd.TabIndex = 32;
+            // 
+            // txtStart
+            // 
+            this.txtStart.Location = new System.Drawing.Point(392, 231);
+            this.txtStart.Name = "txtStart";
+            this.txtStart.Size = new System.Drawing.Size(100, 20);
+            this.txtStart.TabIndex = 31;
             // 
             // btnGraph
             // 
@@ -665,19 +695,21 @@ namespace Shijra
             this.ddlFathersView.TabIndex = 2;
             this.ddlFathersView.SelectedIndexChanged += new System.EventHandler(this.ddlFathersView_SelectedIndexChanged);
             // 
-            // txtStart
+            // exportProgressBar
             // 
-            this.txtStart.Location = new System.Drawing.Point(392, 231);
-            this.txtStart.Name = "txtStart";
-            this.txtStart.Size = new System.Drawing.Size(100, 20);
-            this.txtStart.TabIndex = 31;
+            this.exportProgressBar.Location = new System.Drawing.Point(123, 282);
+            this.exportProgressBar.Name = "exportProgressBar";
+            this.exportProgressBar.Size = new System.Drawing.Size(255, 23);
+            this.exportProgressBar.TabIndex = 34;
             // 
-            // txtEnd
+            // lblProgress
             // 
-            this.txtEnd.Location = new System.Drawing.Point(530, 231);
-            this.txtEnd.Name = "txtEnd";
-            this.txtEnd.Size = new System.Drawing.Size(100, 20);
-            this.txtEnd.TabIndex = 32;
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Location = new System.Drawing.Point(393, 287);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(81, 13);
+            this.lblProgress.TabIndex = 35;
+            this.lblProgress.Text = "Export Progress";
             // 
             // MainForm
             // 
@@ -685,7 +717,7 @@ namespace Shijra
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnReset;
-            this.ClientSize = new System.Drawing.Size(646, 317);
+            this.ClientSize = new System.Drawing.Size(647, 337);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -763,8 +795,9 @@ namespace Shijra
         private Button btnGraph;
         private TextBox txtEnd;
         private TextBox txtStart;
-
-
+        private Button btnExportToFirebase;
+        private ProgressBar exportProgressBar;
+        private Label lblProgress;
     }
 }
 

@@ -7,16 +7,33 @@ using System.IO;
 using System.Diagnostics;
 using Shijra.Helpers;
 using Visio = Microsoft.Office.Interop.Visio;
+using FireSharp.Interfaces;
+using FireSharp.Config;
+using FireSharp;
+using FireSharp.Response;
+using System.Collections.Generic;
 
 namespace Shijra
 {
     public partial class MainForm : Form
     {
+        //FirebaseApp admin;
+        IFirebaseClient client;
+
         #region Constructor
 
         public MainForm()
         {
             InitializeComponent();
+
+
+            IFirebaseConfig config = new FirebaseConfig
+            {
+                AuthSecret = "5Z5RG8RqP4Y10SwLhhiGEHQqf2RR3Aq371csm5T4",
+                BasePath = "https://hashmi-shijra.firebaseio.com/"
+            };
+            client = new FirebaseClient(config);
+
         }
 
         #endregion
@@ -206,7 +223,7 @@ namespace Shijra
 
             List<Model.Person> fathers = ShijraContext.entities.Persons.OrderBy(x => x.FirstName).ToList();
 
-            fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
+            //fathers.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
             ddlFathersView.DataSource = ddlFathers.DataSource = fathers;
             ddlFathersView.DisplayMember = ddlFathers.DisplayMember = "Name";
@@ -311,7 +328,7 @@ namespace Shijra
 
                 childs.RemoveAll(c => c.Id == person.Id);
 
-                childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
+               // childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
                 lstChilds.DataSource = childs;
                 lstChilds.DisplayMember = "Name";
@@ -332,7 +349,7 @@ namespace Shijra
 
                 if (childs.Count > 0)
                 {
-                    childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
+                    //childs.ForEach(x => x.Name = x.FirstName.Trim() + (string.IsNullOrEmpty(x.MiddleName) ? string.Empty : " " + x.MiddleName.Trim()) + (string.IsNullOrEmpty(x.LastName) ? string.Empty : " " + x.LastName.Trim()));
 
                     lstChildsView.DataSource = childs;
                     lstChildsView.DisplayMember = "Name";
@@ -490,12 +507,57 @@ namespace Shijra
 
         }
 
+
+
+
+
+
+
         #endregion
 
+        private void btnExportToFirebase_ClickAsync(object sender, EventArgs e)
+        {
+            List<Model.Person> persons = ShijraContext.entities.Persons.OrderBy(x => x.Id).ToList();
 
+            this.exportProgressBar.Maximum = persons.Count;
 
+            var fatherIds = new Dictionary<long, string>();
+            int count = 0;
+            foreach (Model.Person person in persons)
+            {
+                this.lblProgress.Text = $"Exporting Id {person.Id}: {person.Name}";
+                this.lblProgress.Refresh();
+                var p = new
+                {
+                    name = person.Name,
+                    gender = Convert.ToInt32(person.Gender),
+                    urduName = person.UrduName
+                };
+                PushResponse response = client.Push("person", p);
+                if(!fatherIds.ContainsKey(person.Id))
+                    fatherIds.Add(person.Id, response.Result.name);
 
+                if(fatherIds.ContainsKey(person.FatherId))
+                {
+                    client.Set($"person/{fatherIds[person.FatherId]}/children/{response.Result.name}", p);
+                }
 
+                var f = new
+                {
+                    name = person.Father.Name,
+                    gender = Convert.ToInt32(person.Father.Gender),
+                    urduName = person.Father.UrduName
+                };
+                client.Set($"person/{response.Result.name}/father/{fatherIds[person.FatherId]}", f);
 
+                this.exportProgressBar.Value++;
+                this.exportProgressBar.Refresh();
+                //if(++count == 10)
+                //    break;
+            }
+
+            this.lblProgress.Text = "Done Exporting";
+            this.lblProgress.Refresh();
+        }
     }
 }
