@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navigation from '../Navigation';
-import LandingPage from '../Landing';
-import SignInPage from '../SignIn';
 import HomePage from '../Home';
+import SignInPage from '../SignIn';
+import ShijraPage from '../Shijra';
 import AdminPage from '../Admin';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
+import { Container, Row, Col } from 'react-bootstrap'
 import './App.css';
 
 class AppComponent extends Component {
@@ -19,16 +20,25 @@ class AppComponent extends Component {
 
 const App = () => (
     <Router>
-        <div>
+        <Navigation />
+        <Container fluid>
+            <Row>
+                <Col>
+                    <Route exact path={ROUTES.HOME} component={HomePage} />
+                    <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+                    <Route path={ROUTES.SHIJRA} component={ShijraPage} />
+                    <Route path={ROUTES.ADMIN} component={AdminPage} />
+                </Col>
+            </Row>
+        </Container>
+        {/* <div>
             <Navigation />
 
-            <hr />
-
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route exact path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route path={ROUTES.HOME} component={HomePage} />
+            <Route path={ROUTES.SHIJRA} component={ShijraPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
-        </div>
+        </div> */}
     </Router>
 );
 

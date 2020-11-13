@@ -5,6 +5,8 @@ import App from './components/App';
 import Firebase, { FirebaseContext } from './components/Firebase';
 
 import reportWebVitals from './reportWebVitals';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>

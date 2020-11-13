@@ -8,5 +8,29 @@ body {
 
   .leafNodeBase {
     cursor: hand !important;
-    background-color: pink !important;
+    /* background-color: pink !important; */
+  }
+
+  #navigation {
+    height: '35px';
+    border-bottom: '1px solid black';
+  }
+
+  ul#menu li {
+    display:inline;
+    margin-right: 10px;
+    
+    border: 1px solid black;
+    border-radius: 4px;
+
+  }
+
+  ul#menu li a{
+    text-decoration: none;
+    padding: 10px;
+  }
+  
+  ul#menu li.right {
+    float: right;
+    margin-right: 20px;
   }
