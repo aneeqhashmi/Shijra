@@ -28,31 +28,6 @@
     display: inline-block;
 }
 
-@media (max-width: 500px) {
-    .tree img {
-      width: 450px; 
-    }
-  }
-
-@media (max-height: 650px) {
-    .tree img {
-      width: 450px; 
-    }
-  }
-
-@media (max-height: 600px) {
-    .tree img {
-        width: 300px; 
-      }
-  }
-
-@media (max-height: 450px) {
-    .tree {
-        display: none;
-      }
-  }
-
-
 .nameContainer {
     font-size: 24px;
     display: inline-block;
@@ -71,4 +46,38 @@
 #root {
     min-width: 500px;
     min-height: 600px;
+}
+
+@media (max-width: 500px) {
+  .tree img {
+    width: 450px; 
+  }
+}
+
+@media (max-width: 450px) {
+  .landing {
+    height: 120vh; 
+  }
+  .nameContainer {
+    bottom: 48px;
+    left: 20px;
+  }
+}
+
+@media (max-height: 650px) {
+  .tree img {
+    width: 450px; 
+  }
+}
+
+@media (max-height: 600px) {
+  .tree img {
+      width: 300px; 
+    }
+}
+
+@media (max-height: 450px) {
+  .tree {
+      display: none;
+    }
 }

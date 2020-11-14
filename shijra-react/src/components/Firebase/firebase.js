@@ -31,6 +31,11 @@ class Firebase {
     person = (id) => this.db.ref(`person/${id}`);
 
     getAllMale = () => this.db.ref('person').orderByChild('gender').equalTo(1);
+
+    getMale(text) {
+        console.log(text);
+        return this.db.ref('person').orderByChild('name').startAt(text).endAt(text + "\uf8ff");
+    }
 }
 
 export default Firebase;

@@ -5,11 +5,17 @@ import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
 
 import Tree from 'react-d3-tree';
+import { Spinner } from 'react-bootstrap'
 
-var textWidth = require('text-width');
+import './shijra.css';
+
+var _ = require('lodash');
+
+// var textWidth = require('text-width');
 
 
 class ShijraPage extends Component {
+
     constructor(props) {
         super(props);
 
@@ -32,17 +38,7 @@ class ShijraPage extends Component {
             }
         });
 
-        // var id = "-MKZb7gR9XPdOeLr6eOl"; Qusai
-        this.props.firebase.getAllMale().on('value', snapshot => {
-            var persons = [];
-            Object.keys(snapshot.val()).forEach(id => {
-                // console.log("id", id);
-                var p = snapshot.val()[id];
-                p.id = id;
-                persons.push(p);
-            });
-            this.setState({ persons: persons });
-        });
+        this.getAllMale();
     }
 
     createPersonData(person) {
@@ -196,24 +192,21 @@ class ShijraPage extends Component {
             shape: 'rect',
             shapeProps: {
                 width: 230,
-                height: 75,
+                height: 120,
                 x: -115,
                 rx: 20,
-                y: -40,
+                y: -80,
             }
         }
         // console.log("render", persons);
 
         return (
             <div id='main' style={{ display: 'flex' }}>
-                <div style={{ width: '20%', backgroundColor: 'lightblue', height: '100vh', overflow: 'scroll' }}>
-                    {/* <RenderList persons={persons} /> */}
+                <div style={{ width: '20%', height: '92vh', overflow: 'scroll', backgroundColor: 'gray' }}>
                     {this.RenderList(persons)}
                 </div>
                 <div style={{ width: '80%', textAlign: 'center', paddingTop: '20px', backgroundColor: 'white' }}
                     ref={tc => (this.treeContainer = tc)}>
-                    {/*<RenderDetailSection person={person} father={father}></RenderDetailSection> */}
-
                     {
                         father !== undefined &&
 
@@ -231,11 +224,10 @@ class ShijraPage extends Component {
                             nodeLabelComponent={{
                                 render: <NodeLabel parent={this} />,
                                 foreignObjectWrapper: {
-                                    // y: 10,
                                     width: 230,
                                     x: -114,
-                                    height: 74,
-                                    y: -39
+                                    height: 119,
+                                    y: -69
                                 }
                             }}
                         />
@@ -245,9 +237,64 @@ class ShijraPage extends Component {
         );
     }
 
+    getAllMale() {
+        this.props.firebase.getAllMale().on('value', snapshot => {
+            var persons = [];
+            Object.keys(snapshot.val()).forEach(id => {
+                // console.log("id", id);
+                var p = snapshot.val()[id];
+                p.id = id;
+                persons.push(p);
+            });
+            this.setState({ persons: persons });
+        });
+    }
+
+    getMale(term) {
+        var newTerm = term.split(' ').map(str => {
+            return _.capitalize(str);
+        }).join(' ');
+        this.props.firebase.getMale(newTerm).on('value', snapshot => {
+            console.log(snapshot.val());
+            if (snapshot.val() !== null) {
+                var persons = [];
+                Object.keys(snapshot.val()).forEach(id => {
+                    // console.log("id", id);
+                    var p = snapshot.val()[id];
+                    // if (p.gender === 1) {
+                    p.id = id;
+                    persons.push(p);
+                    // }
+                });
+                console.log(persons.length);
+                this.setState({ persons: persons });
+            }
+        });
+    }
+
+    filterPersons(e) {
+        // console.log(this);
+
+        if (e.target.value === "") {
+            this.getAllMale();
+        }
+        else {
+            this.getMale(e.target.value);
+        }
+    }
+
     RenderList(persons) {
         return (
-            <div style={{ border: '1px solid black' }}>
+            <div >
+                <div className="searchContainer">
+                    <input onChange={(e) => this.filterPersons(e)}></input>
+                </div>
+                {
+                    (persons === undefined || persons.length === 0) &&
+                    <div style={{ textAlign: 'center', marginTop: '200px' }}>
+                        < Spinner animation="border" />
+                    </div>
+                }
                 {
                     // console.log(param.persons)
                     persons.map((value, index) => {
@@ -260,9 +307,10 @@ class ShijraPage extends Component {
     }
 
     RenderListItem(param) {
+        var altClass = param.key % 2 === 0 ? 'listItem alternateListItem' : 'listItem'
         return (
-            <div key={param.person.id} style={{ borderBottom: '1px solid black', textAlign: 'center', padding: '10px' }} onClick={() => this.selectPerson(param.person.id)}>
-                <div style={{ fontSize: '12px' }}>{param.person.id}</div>
+            <div key={param.person.id} className={altClass} onClick={() => this.selectPerson(param.person.id)}>
+                {/* <div style={{ fontSize: '12px' }}>{param.person.id}</div> */}
                 <div style={{ fontSize: '12px' }}>{param.person.name}</div>
                 <div style={{ fontSize: '12px' }}>{param.person.urduName}</div>
             </div>
@@ -283,24 +331,24 @@ class NodeLabel extends React.PureComponent {
         // if (nodeData.key === '-MKZb9MqVJ3x9efL9Pcx')
         // console.log("conditonal", nodeData);
 
-        return <div style={{ height: '73px', width: '228px', display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', borderRadius: '19px', backgroundColor: bgColor }}>
+        return <div className="nodeContainer" style={{ backgroundColor: bgColor }}>
 
             {
                 nodeData.isRoot && nodeData.key !== "-MKZb7gR9XPdOeLr6eOl" && // Qusai key
-                <div style={{ position: 'absolute', width: '17px', height: '17px', borderRadius: '0px', top: '28px', right: '0px', fontSize: '14px', fontWeight: '100', zIndex: 100, backgroundColor: 'black', color: "white" }}
+                <div className="node root"
                     onClick={() => { parent.loadParent(nodeData.key) }}>
                     ▲
                 </div>
             }
             {
                 (nodeData.childrenCount !== undefined && nodeData.childrenCount > 0) &&
-                <div style={{ position: 'absolute', width: '17px', height: '17px', borderRadius: '0px', top: '28px', left: '0px', fontSize: '14px', fontWeight: '100', zIndex: 100, backgroundColor: 'black', color: "white" }}>
+                <div className="node nonroot">
                     {nodeData.childrenCount}
                 </div>
             }
             {
                 (nodeData.childrenCount === undefined && nodeData.gender === 1) &&
-                <div style={{ position: 'absolute', width: '17px', height: '17px', borderRadius: '0px', top: '28px', left: '0px', fontSize: '14px', fontWeight: '100', zIndex: 100, backgroundColor: 'black', color: "white" }}
+                <div className="node nonroot leaf"
                     onClick={() => { parent.loadChildren(nodeData.key) }}>
                     ?
                 </div>
