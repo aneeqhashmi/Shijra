@@ -72,6 +72,7 @@ class ShijraPage extends Component {
                         var f = fSnapshot.val();
                         f.id = fSnapshot.key;
                         f.isRoot = true;
+                        f.collapsed = false;
                         var father = this.createPersonData(f);
                         father.children = [];
                         var promisses = [];
@@ -123,15 +124,17 @@ class ShijraPage extends Component {
     loadParent(personId) {
         const { father } = this.state;
         this.loadParentTree(personId).then(fatherTree => {
+            fatherTree._collapsed = false;
             fatherTree.children.map((value, index) => {
                 if (value.key === personId) {
                     father.isRoot = false;
+                    father._collapsed = false;
                     fatherTree.children[index] = father;
                 }
                 return true;
             });
 
-            console.log("With new parent: ", fatherTree);
+            // console.log("With new parent: ", fatherTree);
             this.setState({ father: undefined });
             setTimeout(() => {
                 this.setState({ father: fatherTree });
@@ -144,6 +147,7 @@ class ShijraPage extends Component {
         const { father } = this.state;
         this.props.firebase.person(parentId).on('value', pSnapshot => {
             var person = pSnapshot.val();
+            person._collapsed = false;
             var children = [];
             if (person.children !== undefined) {
                 Object.keys(person.children).forEach(cid => {
@@ -153,7 +157,7 @@ class ShijraPage extends Component {
             }
 
             // assign to correct parent
-            this.formatData([father], parentId, children);
+            this.AssignChildrenToParentInObject([father], parentId, children);
 
             this.setState({ father: undefined });
             setTimeout(() => {
@@ -164,7 +168,7 @@ class ShijraPage extends Component {
         });
     }
 
-    formatData(arr, value, children) {
+    AssignChildrenToParentInObject(arr, value, children) {
         arr.forEach(i => {
             if (i.key === value) {
 
@@ -178,7 +182,26 @@ class ShijraPage extends Component {
             } else {
 
                 if (i.children !== undefined)
-                    this.formatData(i.children, value, children)
+                    this.AssignChildrenToParentInObject(i.children, value, children)
+            }
+        });
+
+        // console.log("father updated", arr);
+    }
+
+    formatData(arr, value) {
+        arr.forEach(i => {
+            if (i.key === value) {
+
+                arr.forEach(o => {
+                    o._collapsed = true;
+                });
+
+                i._collapsed = false;
+            } else {
+
+                if (i.children !== undefined)
+                    this.formatData(i.children, value)
             }
         });
 
@@ -221,6 +244,7 @@ class ShijraPage extends Component {
                             // textLayout={{ x: -90, y: 20 }}
                             useCollapseData={true}
                             allowForeignObjects
+                            onClick={(n, e) => this.onNodeClick(n, e)}
                             nodeLabelComponent={{
                                 render: <NodeLabel parent={this} />,
                                 foreignObjectWrapper: {
@@ -235,6 +259,12 @@ class ShijraPage extends Component {
                 </div>
             </div >
         );
+    }
+
+    onNodeClick(nodeData, eve) {
+        const { father } = this.state;
+        this.formatData([father], nodeData.key);
+
     }
 
     getAllMale() {
@@ -255,7 +285,7 @@ class ShijraPage extends Component {
             return _.capitalize(str);
         }).join(' ');
         this.props.firebase.getMale(newTerm).on('value', snapshot => {
-            console.log(snapshot.val());
+            // console.log(snapshot.val());
             if (snapshot.val() !== null) {
                 var persons = [];
                 Object.keys(snapshot.val()).forEach(id => {
@@ -266,7 +296,7 @@ class ShijraPage extends Component {
                     persons.push(p);
                     // }
                 });
-                console.log(persons.length);
+                // console.log(persons.length);
                 this.setState({ persons: persons });
             }
         });
