@@ -5,6 +5,8 @@ import Navigation from '../Navigation';
 import HomePage from '../Home';
 import SignInPage from '../SignIn';
 import ShijraPage from '../Shijra';
+import IntroPage from '../Introduction';
+import HIWPage from '../HowItWorks';
 import AdminPage from '../Admin';
 import CreatePage from '../Admin/Create';
 import UpdatePage from '../Admin/Update';
@@ -32,6 +34,8 @@ const App = () => (
                     <Route path={ROUTES.ADMIN} component={AdminPage} />
                     <Route path={ROUTES.CREATE} component={CreatePage} />
                     <Route path={ROUTES.UPDATE} component={UpdatePage} />
+                    <Route path={ROUTES.INTRO} component={IntroPage} />
+                    <Route path={ROUTES.HIW} component={HIWPage} />
                 </Col>
             </Row>
         </Container>

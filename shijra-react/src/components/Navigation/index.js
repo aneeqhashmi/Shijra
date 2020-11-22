@@ -41,7 +41,9 @@ const NavigationAuth = (params) => {
     return <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
             <Nav.Link className={params.activePath === ROUTES.HOME ? 'active' : ''} href={ROUTES.HOME}>Home</Nav.Link>
+            <Nav.Link className={params.activePath === ROUTES.INTRO ? 'active' : ''} href={ROUTES.INTRO}>Intro</Nav.Link>
             <Nav.Link className={params.activePath === ROUTES.SHIJRA ? 'active' : ''} href={ROUTES.SHIJRA}>Shijra</Nav.Link>
+            <Nav.Link className={params.activePath === ROUTES.HIW ? 'active' : ''} href={ROUTES.HIW}>How It Works</Nav.Link>
         </Nav>
         <Nav>
             {/* <Nav.Link className={params.activePath === ROUTES.ADMIN ? 'active' : ''} href={ROUTES.ADMIN}>Admin</Nav.Link> */}
@@ -60,7 +62,9 @@ const NavigationNonAuth = (params) => {
     return <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
             <NavLink className={params.activePath === ROUTES.HOME ? 'active' : ''} href={ROUTES.HOME}>Home</NavLink>
+            <Nav.Link className={params.activePath === ROUTES.INTRO ? 'active' : ''} href={ROUTES.INTRO}>Intro</Nav.Link>
             <NavLink className={params.activePath === ROUTES.SHIJRA ? 'active' : ''} href={ROUTES.SHIJRA}>Shijra</NavLink>
+            <Nav.Link className={params.activePath === ROUTES.HIW ? 'active' : ''} href={ROUTES.HIW}>How It Works</Nav.Link>
         </Nav>
         <Nav>
             <NavLink href={ROUTES.SIGN_IN} >Admin Login <DoorOpen /></NavLink>
