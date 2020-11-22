@@ -4,10 +4,10 @@ import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { Form, Button } from 'react-bootstrap'
 
 const SignInPage = () => (
-    <div>
-        <h1>SignIn</h1>
+    <div style={{ width: '50%', margin: 'auto', marginTop: '100px' }}>
         <SignInForm />
     </div>
 );
@@ -24,13 +24,13 @@ class SignInFormBase extends Component {
 
         this.state = { ...INITIAL_STATE };
 
-        this.state.email = "aneeqhashmi@yahoo.com";
-        this.state.password = "click123";
+        // this.state.email = "aneeqhashmi@yahoo.com";
+        // this.state.password = "click123";
     }
 
     onSubmit = event => {
         const { email, password } = this.state;
-
+        console.log(email, password);
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
@@ -54,27 +54,27 @@ class SignInFormBase extends Component {
         const isInvalid = password === '' || email === '';
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <button disabled={isInvalid} type="submit">
-                    Sign In
-        </button>
 
-                {error && <p>{error.message}</p>}
-            </form>
+            <Form onSubmit={this.onSubmit}>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.onChange} value={this.state.email} />
+                    <Form.Text className="text-muted">
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control name="password" type="password" placeholder="Password" onChange={this.onChange} value={this.state.password} />
+                    {error != null && <Form.Control.Feedback type="invalid" tooltip style={{ position: 'relative', display: 'block', marginTop: '10px' }}>
+                        {error.message}
+                    </Form.Control.Feedback>}
+                </Form.Group>
+                <Button variant="dark" type="submit">
+                    Login
+                </Button>
+            </Form >
+
         );
     }
 }

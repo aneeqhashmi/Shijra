@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import { AuthUserContext } from '../Session';
-import { Navbar, Nav, NavLink } from 'react-bootstrap'
+import { Navbar, Nav, NavLink, NavDropdown } from 'react-bootstrap'
 import { DoorOpen } from 'react-bootstrap-icons';
 // import { matchPath } from 'react-router';
 
@@ -15,7 +15,7 @@ const NavigationBar = (params) => {
 
     return <Navbar bg="dark" expand="lg" variant="dark">
         <Navbar.Brand href="/shijra">
-            <img alt="Shijra" width="50px" src='shijra-tree.png'></img>
+            <img alt="Shijra" width="50px" src='/shijra-tree.png'></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -23,11 +23,6 @@ const NavigationBar = (params) => {
                 <NavigationAuth activePath={pathname} />
                 :
                 <NavigationNonAuth activePath={pathname} />}
-
-            {/* <Form inline>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-success">Search</Button>
-            </Form> */}
         </Navbar.Collapse>
     </Navbar>
 }
@@ -47,10 +42,14 @@ const NavigationAuth = (params) => {
         <Nav className="mr-auto">
             <Nav.Link className={params.activePath === ROUTES.HOME ? 'active' : ''} href={ROUTES.HOME}>Home</Nav.Link>
             <Nav.Link className={params.activePath === ROUTES.SHIJRA ? 'active' : ''} href={ROUTES.SHIJRA}>Shijra</Nav.Link>
-            <Nav.Link className={params.activePath === ROUTES.ADMIN ? 'active' : ''} href={ROUTES.ADMIN}>Admin</Nav.Link>
         </Nav>
         <Nav>
-            <Nav.Link href="#"><SignOutButton /></Nav.Link>
+            {/* <Nav.Link className={params.activePath === ROUTES.ADMIN ? 'active' : ''} href={ROUTES.ADMIN}>Admin</Nav.Link> */}
+            <NavDropdown title="Admin" id="basic-nav-dropdown">
+                <NavDropdown.Item href={ROUTES.CREATE}>Add</NavDropdown.Item>
+                <NavDropdown.Item href={ROUTES.UPDATE}>Update</NavDropdown.Item>
+            </NavDropdown>
+            <SignOutButton />
         </Nav>
     </Navbar.Collapse>
 }

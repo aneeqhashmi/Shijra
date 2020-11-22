@@ -16,9 +16,9 @@
 }
 
 .nodeBase, .leafNodeBase {
-    stroke: none;
+    stroke: none !important;
     /* cursor: grab; */ 
-    fill: transparent;
+    fill: transparent  !important;
 }
 
 .nodeContainer {

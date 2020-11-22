@@ -280,11 +280,11 @@ class ShijraPage extends Component {
         });
     }
 
-    getMale(term) {
+    searchPerson(term) {
         var newTerm = term.split(' ').map(str => {
             return _.capitalize(str);
         }).join(' ');
-        this.props.firebase.getMale(newTerm).on('value', snapshot => {
+        this.props.firebase.searchPerson(newTerm).on('value', snapshot => {
             // console.log(snapshot.val());
             if (snapshot.val() !== null) {
                 var persons = [];
@@ -293,6 +293,12 @@ class ShijraPage extends Component {
                     var p = snapshot.val()[id];
                     // if (p.gender === 1) {
                     p.id = id;
+                    // console.log(p);
+                    var fatherId = Object.keys(p.father)[0];
+                    // console.log("father: ", p.father[fatherId].name);
+                    var rel = p.gender === 1 ? ' s/o ' : ' d/o ';
+                    p.name = p.name + rel + p.father[fatherId].name;
+                    p.urduName = p.urduName + ' ولد ' + p.father[fatherId].urduName; //ولد  
                     persons.push(p);
                     // }
                 });
@@ -309,7 +315,7 @@ class ShijraPage extends Component {
             this.getAllMale();
         }
         else {
-            this.getMale(e.target.value);
+            this.searchPerson(e.target.value);
         }
     }
 
@@ -317,7 +323,7 @@ class ShijraPage extends Component {
         return (
             <div >
                 <div className="searchContainer">
-                    <input onChange={(e) => this.filterPersons(e)}></input>
+                    <input placeholder="Search here" onChange={(e) => this.filterPersons(e)}></input>
                 </div>
                 {
                     (persons === undefined || persons.length === 0) &&

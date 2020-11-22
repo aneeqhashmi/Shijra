@@ -32,10 +32,72 @@ class Firebase {
 
     getAllMale = () => this.db.ref('person').orderByChild('gender').equalTo(1);
 
-    getMale(text) {
+    searchPerson(text) {
         // console.log(text);
         return this.db.ref('person').orderByChild('name').startAt(text).endAt(text + "\uf8ff");
     }
+
+    addPerson(name, urduName, gender, fatherId, father) {
+        return this.db.ref(`person`).push({
+            name: name,
+            urduName: urduName,
+            gender: gender,
+            father: { [fatherId]: father }
+        });
+    }
+
+    addChild(key, name, urduName, gender, fatherId) {
+        return this.db.ref(`person/${fatherId}/children/${key}`).set({
+            name: name,
+            urduName: urduName,
+            gender: gender
+        });
+    }
+
+    updatePerson(name, urduName, gender, personId) {
+        return this.db.ref(`person/${personId}`).update({
+            name: name,
+            urduName: urduName,
+            gender: gender
+        });
+    }
+
+    updateSelfAsChild(name, urduName, gender, personId, fatherId) {
+        return this.db.ref(`person/${fatherId}/children/${personId}`).update({
+            name: name,
+            urduName: urduName,
+            gender: gender
+        });
+    }
+
+    updateSelfAsFather(name, urduName, gender, childrenIds, fatherId) {
+
+        var updatedData = {
+            name: name,
+            urduName: urduName,
+            gender: gender
+        };
+
+        var updates = {};
+        childrenIds.map((childId) => {
+            updates[`/person/${childId}/father/${fatherId}`] = updatedData;
+            return true;
+        });
+
+        console.log(updates);
+        return this.db.ref().update(updates);
+    }
+
+    deletePerson(personId) {
+        return this.db.ref(`person/${personId}`).set(null);
+    }
+
+    deleteSelfAsChild(personId, fatherId) {
+        return this.db.ref(`person/${fatherId}/children/${personId}`).set(null);
+    }
+
+
+
 }
 
 export default Firebase;
