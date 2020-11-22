@@ -34,7 +34,7 @@ class CreateFormBase extends Component {
     componentDidMount() {
 
         this.props.firebase.getAllMale().on('value', snapshot => {
-            var options = [{ value: "none", label: "Select a Father" }];
+            var options = [];
             var fathers = {};
             Object.keys(snapshot.val()).forEach(id => {
                 // console.log("id", id);
@@ -51,6 +51,8 @@ class CreateFormBase extends Component {
                 var option = { value: id, label: label }
                 options.push(option);
             });
+            options.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0));
+            options.unshift({ value: "none", label: "Select a Father" });
             this.setState({ options: options, fathers: fathers });
         });
     }
