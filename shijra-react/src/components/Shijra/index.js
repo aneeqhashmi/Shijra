@@ -268,14 +268,26 @@ class ShijraPage extends Component {
     }
 
     getAllMale() {
+        var mutalib = {};
+        var abdullah = {};
+        var Prophet = {};
         this.props.firebase.getAllMale().on('value', snapshot => {
             var persons = [];
             Object.keys(snapshot.val()).forEach(id => {
                 // console.log("id", id);
                 var p = snapshot.val()[id];
                 p.id = id;
-                persons.push(p);
+                if (id === "-MMngR7f-7eEYw0a6K3o" || id === "-MMnglFs_aHtE74QsvaK" || id === "-MMnhRbIylWACUWYx8nW") {
+                    if (id === "-MMngR7f-7eEYw0a6K3o") mutalib = p;
+                    if (id === "-MMnglFs_aHtE74QsvaK") abdullah = p;
+                    if (id === "-MMnhRbIylWACUWYx8nW") Prophet = p;
+                }
+                else
+                    persons.push(p);
             });
+            persons.splice(3, 0, Prophet);
+            persons.splice(3, 0, abdullah);
+            persons.splice(3, 0, mutalib);
             this.setState({ persons: persons });
         });
     }
